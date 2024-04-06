@@ -4,4 +4,10 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-        main.cpp
+        kortti.cpp \
+        main.cpp \
+        pelaaja.cpp
+
+HEADERS += \
+    kortti.h \
+    pelaaja.h
