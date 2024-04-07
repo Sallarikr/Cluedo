@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <algorithm>
 #include <vector>
 #include <string>
 #include <sstream>
@@ -6,6 +7,11 @@
 #include "pelaaja.h"
 
 using namespace std;
+
+// Syytöksen tarkistaminen
+bool tarkistaSyytos(const vector<string>& ratkaisu, const string& kysyttavaAse) {
+   return find(ratkaisu.begin(), ratkaisu.end(), kysyttavaAse) != ratkaisu.end();
+}
 
 int main()
 {
@@ -23,10 +29,10 @@ int main()
 
     // Korttien jako
     jaaKortit(pelaajat, kortit);
-    naytaPelaajanKortit(pelaajat);
+ //   naytaPelaajanKortit(pelaajat);
 
     // Ratkaisun näyttäminen
-    // naytaRatkaisu(ratkaisu);
+     naytaRatkaisu(ratkaisu);
 
     // Kysytään pelaajalta haluaako tämä arvata vai syyttää
     int valinta;
@@ -39,6 +45,8 @@ int main()
             cout << "Virheellinen syöte, anna joko numero 1 tai 2!" << endl;
         }
     } while(valinta != 1 && valinta != 2);
+
+
 
     // Jos halutaan arvata
     if(valinta == 1) {
@@ -86,7 +94,45 @@ int main()
 
     } else if (valinta == 2) {
         cout << "Anna syytöksesi: " << endl;
-        // Syytöstiedot ratkaisusta
+        cin.ignore(); // Syötteen tyhjennys, jotta epäillyn koko nimi toimii epäillyn valitsemisessa
+
+        string kysyttavaEpailty;
+        cout << "Syytökseni mukaan murhaaja on "; // Syöte jatkaa lausetta
+        // Epäillyn koko nimen toimimiseksi käytetään getline ja sstream
+        getline(cin, kysyttavaEpailty);
+        stringstream stream(kysyttavaEpailty);
+        string syote;
+
+        string kysyttavaAse;
+        cout << "Murha-aseena oli "; // Syöte jatkaa lausetta
+        cin >> kysyttavaAse;
+
+        string kysyttavaHuone;
+        cout << "Tapahtumapaikkana oli "; // Syöte päättää arvauksen
+        cin >> kysyttavaHuone;
+
+        if(tarkistaSyytos(ratkaisu, kysyttavaEpailty)) {
+            cout << "EPÄILTY LÖYTYY" << endl;
+        } else {
+            cout << "EPÄILTYÄ EI LÖYDY" << endl;
+        }
+
+
+        if(tarkistaSyytos(ratkaisu, kysyttavaAse)) {
+            cout << "ASE LÖYTYY" << endl;
+        } else {
+            cout << "ASETTA EI LÖYDY" << endl;
+        }
+
+
+        if(tarkistaSyytos(ratkaisu, kysyttavaHuone)) {
+            cout << "HUONE LÖYTYY" << endl;
+        } else {
+            cout << "HUONETTA EI LÖYDY" << endl;
+        }
+
+
+
     }
 
     return 0;

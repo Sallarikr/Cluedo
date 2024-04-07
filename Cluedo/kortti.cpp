@@ -42,8 +42,8 @@ void luoKortit(vector<string>& kortit, vector<string>& ratkaisu) {
 
 // Ratkaisun näyttäminen
 void naytaRatkaisu(const vector<string>& ratkaisu) {
-    cout << "Ratkaisu: " << endl;
     for(const auto& kortti : ratkaisu) {
         cout << kortti << endl;
     }
 }
+

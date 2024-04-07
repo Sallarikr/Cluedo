@@ -44,3 +44,5 @@ bool Pelaaja::kadessa(const string& kortti) const {
     return find(pelaajallaOlevatKortit.begin(), pelaajallaOlevatKortit.end(), kortti) != pelaajallaOlevatKortit.end();
 }
 
+
+
