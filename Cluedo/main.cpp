@@ -1,5 +1,7 @@
 ﻿#include <iostream>
 #include <vector>
+#include <string>
+#include <sstream>
 #include "kortti.h"
 #include "pelaaja.h"
 
@@ -31,6 +33,7 @@ int main()
     cout << "Haluatko esittää epäilyn vai syytöksen? (Epäily = 1, syytös = 2)" << endl;
     cout << "Valintasi: ";
     cin >> valinta;
+    cin.ignore(); // Syötteen tyhjennys
 
     // Jos halutaan epäillä
     if(valinta == 1) {
@@ -39,11 +42,15 @@ int main()
         cout << "Kummalta vastustajalta haluat kysyä kortteja? (Vastustaja 1 = 1, Vastustaja 2 = 2)" << endl;
         cout << "valintasi: ";
         cin >> vastustaja;
+        cin.ignore(); // Syötteen tyhjennys
 
         // Kysyttävien korttien valitseminen
         string kysyttavaKortti;
         cout << "Mitä korttia haluat kysyä? ";
-        cin >> kysyttavaKortti;
+        // Epäillyn koko nimen toimimiseksi käytetään getline ja sstream
+        getline(cin, kysyttavaKortti);
+        stringstream stream(kysyttavaKortti);
+        string syote;
 
         // Korttien kysyminen valitulta vastustajalta
         if(pelaajat[vastustaja].kadessa(kysyttavaKortti)) {
@@ -56,6 +63,5 @@ int main()
         cout << "Anna syytöksesi: " << endl;
         // Syytöstiedot ratkaisusta
     }
-
     return 0;
 }
