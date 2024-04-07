@@ -1,5 +1,4 @@
-﻿#include <iostream>
-#include <vector>
+﻿#include <vector>
 #include "kortti.h"
 #include "pelaaja.h"
 
@@ -10,14 +9,9 @@ int main()
     // Pelaajien luonti
     vector<Pelaaja> pelaajat;
     // Nimien lisäys
-    pelaajat.push_back(Pelaaja("Käyttäjä"));
-    pelaajat.push_back(Pelaaja("Toka"));
-    pelaajat.push_back(Pelaaja("Kolmas"));
-    // Nimien testitulostus
-     cout << "Nimet: " << endl;
-     for(const auto& pelaaja : pelaajat) {
-         cout << pelaaja.getNimi() << endl;
-     }
+    pelaajat.push_back(Pelaaja("Pelaaja 1"));
+    pelaajat.push_back(Pelaaja("Pelaaja 2"));
+    pelaajat.push_back(Pelaaja("Pelaaja 3"));
 
     // Korttien luonti
     vector<string> kortit;
@@ -25,11 +19,11 @@ int main()
     luoKortit(kortit, ratkaisu);
 
     // Korttien jako
-   // jaaKortit(pelaajat, kortit);
-   // naytaPelaajanKortit(pelaajat);
+    jaaKortit(pelaajat, kortit);
+    naytaPelaajanKortit(pelaajat);
 
     // Ratkaisun näyttäminen
- //   naytaRatkaisu(ratkaisu);
+    naytaRatkaisu(ratkaisu);
 
     return 0;
 }

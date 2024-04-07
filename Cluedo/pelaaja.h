@@ -7,20 +7,18 @@ using namespace std;
 
 class Pelaaja {
 public:
-    Pelaaja(const string& pelaajanNimi); // : nimi(nimi) {}
+    Pelaaja(const string& pelaajanNimi);
     void lisaaKortti(const string& kortti);
     const vector<string>& getPelaajallaOlevatKortit() const {
         return pelaajallaOlevatKortit;
     }
-    string getNimi() const; //{
-    //    return nimi;
-   // }
+    string getNimi() const;
+
 private:
     string nimi;
     vector<string> pelaajallaOlevatKortit;
 };
 
-//void luoPelaajat(vector<Pelaaja>& pelaajat);
 void naytaPelaajanKortit(const vector<Pelaaja>& pelaajat);
 void jaaKortit(vector<Pelaaja>& pelaajat, vector<string>& kortit);
 

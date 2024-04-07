@@ -5,6 +5,7 @@ using namespace std;
 
 Pelaaja::Pelaaja(const string& pelaajanNimi) : nimi(pelaajanNimi) {}
 
+// Nimen hakeminen
 string Pelaaja::getNimi() const {
     return nimi;
 }
@@ -28,9 +29,9 @@ void jaaKortit(vector<Pelaaja>& pelaajat, vector<string>& kortit) {
 
 // Näytetään pelaajalla olevat kortit
 void naytaPelaajanKortit(const vector<Pelaaja>& pelaajat) {
-    for(size_t i = 0; i < pelaajat.size(); ++i) {
-        cout << "Pelaajan " << i + 1 << " kortit:" << endl;
-        for(const auto& kortti : pelaajat[i].getPelaajallaOlevatKortit()) {
+    for(const auto& pelaaja : pelaajat) {
+        cout << pelaaja.getNimi() + ":n kortit:" << endl;
+        for(const auto& kortti : pelaaja.getPelaajallaOlevatKortit()) {
             cout << kortti << endl;
         }
         cout << endl;
