@@ -30,10 +30,16 @@ int main()
 
     // Kysytään pelaajalta haluaako tämä epäillä vai syyttää
     int valinta;
-    cout << "Haluatko esittää epäilyn vai syytöksen? (Epäily = 1, syytös = 2)" << endl;
-    cout << "Valintasi: ";
-    cin >> valinta;
-    cin.ignore(); // Syötteen tyhjennys
+    // Jos käyttäjä antaa muun vastauksen kuin 1 tai 2, ohjelma kysyy uudestaan
+    do {
+        cout << "Haluatko esittää epäilyn vai syytöksen? (Epäily = 1, syytös = 2)" << endl;
+        cout << "Valintasi: ";
+        cin >> valinta;
+        cin.ignore(); // Syötteen tyhjennys
+        if(valinta != 1 && valinta != 2) {
+            cout << "Virheellinen syöte, anna joko numero 1 tai 2!" << endl;
+        }
+    } while(valinta != 1 && valinta != 2);
 
     // Jos halutaan epäillä
     if(valinta == 1) {
@@ -63,5 +69,9 @@ int main()
         cout << "Anna syytöksesi: " << endl;
         // Syytöstiedot ratkaisusta
     }
+
+
+
+
     return 0;
 }
