@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <cstdlib>
 #include "kortti.h"
 #include "pelaaja.h"
 
@@ -45,8 +46,6 @@ int main()
             cout << "Virheellinen syöte, anna joko numero 1 tai 2!" << endl;
         }
     } while(valinta != 1 && valinta != 2);
-
-
 
     // Jos halutaan arvata
     if(valinta == 1) {
@@ -92,7 +91,9 @@ int main()
             cout << "HUONETTA EI LÖYDY" << endl;
         }
 
-    } else if (valinta == 2) {
+    }
+    // Jos halutaan syyttää
+    else if (valinta == 2) {
         cout << "Anna syytöksesi: " << endl;
         cin.ignore(); // Syötteen tyhjennys, jotta epäillyn koko nimi toimii epäillyn valitsemisessa
 
@@ -111,29 +112,49 @@ int main()
         cout << "Tapahtumapaikkana oli "; // Syöte päättää arvauksen
         cin >> kysyttavaHuone;
 
-        if(tarkistaSyytos(ratkaisu, kysyttavaEpailty)) {
-            cout << "EPÄILTY LÖYTYY" << endl;
-        } else {
-            cout << "EPÄILTYÄ EI LÖYDY" << endl;
-        }
+        int lkm = 0;
 
+        if(tarkistaSyytos(ratkaisu, kysyttavaEpailty)) {
+            ++lkm;
+        }
 
         if(tarkistaSyytos(ratkaisu, kysyttavaAse)) {
-            cout << "ASE LÖYTYY" << endl;
-        } else {
-            cout << "ASETTA EI LÖYDY" << endl;
+            ++lkm;
         }
-
 
         if(tarkistaSyytos(ratkaisu, kysyttavaHuone)) {
-            cout << "HUONE LÖYTYY" << endl;
-        } else {
-            cout << "HUONETTA EI LÖYDY" << endl;
+            ++lkm;
         }
 
+        // Jos syytös on oikein
+        if(lkm == 3) {
+            cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
+            cout << "Onneksi olkoon, voitit pelin!" << endl;
+        }
+        // Jos syytös on väärin
+        else {
+            int paatos;
+            cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
+            cout << "Voi harmi, syytöksesi oli väärin" << endl;
 
+            // Kysytään halutaanko lopettaa vai jatkaa
+            do {
+                cout << "Haluatko lopettaa pelin, vai katsoa, kumpi vastustajistasi vie voiton? (Lopetus = 1, katsominen = 2)" << endl;
+                cout << "Valintasi: ";
+                cin >> paatos;
+                if(paatos != 1 && paatos != 2) {
+                    cout << "Virheellinen syöte, anna joko numero 1 tai 2!" << endl;
+                }
+            } while(paatos != 1 && paatos != 2);
 
+            // Jos lopetetaan
+            if(paatos == 1) {
+                cout << "Ensi kertaan!" << endl;
+                exit(0);
+            } else if(paatos == 2) {
+                // TÄHÄN KATSOMINEN
+            }
+        }
     }
-
     return 0;
 }
