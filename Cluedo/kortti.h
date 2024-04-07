@@ -1,4 +1,4 @@
-#ifndef KORTTI_H
+﻿#ifndef KORTTI_H
 #define KORTTI_H
 #include <string>
 #include <vector>

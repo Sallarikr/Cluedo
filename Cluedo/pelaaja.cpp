@@ -1,13 +1,12 @@
-#include <iostream>
+﻿#include <iostream>
 #include "pelaaja.h"
 
 using namespace std;
 
-// Luodaan pelaajat
-void luoPelaajat(vector<Pelaaja>& pelaajat) {
-    pelaajat.emplace_back("Pelaaja 1");
-    pelaajat.emplace_back("Pelaaja 2");
-    pelaajat.emplace_back("Pelaaja 3");
+Pelaaja::Pelaaja(const string& pelaajanNimi) : nimi(pelaajanNimi) {}
+
+string Pelaaja::getNimi() const {
+    return nimi;
 }
 
 // Annetaan pelaajalle kortti
