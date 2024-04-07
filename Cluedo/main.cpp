@@ -39,10 +39,20 @@ int main()
     int valinta;
     // Jos käyttäjä antaa muun vastauksen kuin 1 tai 2, ohjelma kysyy uudestaan
     do {
+        cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
         cout << "Haluatko arvata vai syyttää? (Arvaus = 1, syytös = 2)" << endl;
         cout << "Valintasi: ";
         cin >> valinta;
+        if(cin.fail()) {
+            cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
+            cout << "Annathan vastauksesi vain numeroina!" << endl;
+            cin.clear();
+            cin.ignore();
+            continue;
+        }
+
         if(valinta != 1 && valinta != 2) {
+            cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
             cout << "Virheellinen syöte, anna joko numero 1 tai 2!" << endl;
         }
     } while(valinta != 1 && valinta != 2);
@@ -51,6 +61,7 @@ int main()
     if(valinta == 1) {
         // Valitaan vastustaja jolta kortteja kysytään
         int vastustaja;
+        cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
         cout << "Kummalta vastustajalta haluat kysyä kortteja? (Vastustaja 1 = 1, Vastustaja 2 = 2)" << endl;
         cout << "valintasi: ";
         cin >> vastustaja;
@@ -58,6 +69,7 @@ int main()
 
         // Kysyttävien korttien valitseminen
         string kysyttavaEpailty;
+        cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
         cout << "Arvaan, että murhaaja on "; // Syöte jatkaa lausetta
         // Epäillyn koko nimen toimimiseksi käytetään getline ja sstream
         getline(cin, kysyttavaEpailty);
@@ -139,9 +151,18 @@ int main()
 
             // Kysytään halutaanko lopettaa vai jatkaa
             do {
+                cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
                 cout << "Haluatko lopettaa pelin, vai katsoa, kumpi vastustajistasi vie voiton? (Lopetus = 1, katsominen = 2)" << endl;
                 cout << "Valintasi: ";
                 cin >> paatos;
+
+                if(cin.fail()) {
+                    cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
+                    cout << "Annathan vastauksesi vain numeroina!" << endl;
+                    cin.clear();
+                    cin.ignore();
+                    continue;
+                }
                 if(paatos != 1 && paatos != 2) {
                     cout << "Virheellinen syöte, anna joko numero 1 tai 2!" << endl;
                 }
