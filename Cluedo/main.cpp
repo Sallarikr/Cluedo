@@ -1,4 +1,5 @@
-﻿#include <vector>
+﻿#include <iostream>
+#include <vector>
 #include "kortti.h"
 #include "pelaaja.h"
 
@@ -23,7 +24,19 @@ int main()
     naytaPelaajanKortit(pelaajat);
 
     // Ratkaisun näyttäminen
-    naytaRatkaisu(ratkaisu);
+   // naytaRatkaisu(ratkaisu);
+
+    // Korttien kysyminen toiselta pelaajalta
+    string kysyttavaKortti;
+    cout << "Mitä korttia haluat kysyä? ";
+    cin >> kysyttavaKortti;
+
+    // Kysytään korttia Pelaaja 2:lta esimerkiksi
+    if(pelaajat[1].kadessa(kysyttavaKortti)) {
+        cout << "LÖYTYY";
+    } else {
+        cout << "EI LÖYDY";
+    }
 
     return 0;
 }

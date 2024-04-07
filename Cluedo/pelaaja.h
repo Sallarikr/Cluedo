@@ -13,7 +13,7 @@ public:
         return pelaajallaOlevatKortit;
     }
     string getNimi() const;
-
+    bool kadessa(const string& kortti) const;
 private:
     string nimi;
     vector<string> pelaajallaOlevatKortit;

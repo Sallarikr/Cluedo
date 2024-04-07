@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <algorithm>
 #include "pelaaja.h"
 
 using namespace std;
@@ -37,3 +38,8 @@ void naytaPelaajanKortit(const vector<Pelaaja>& pelaajat) {
         cout << endl;
     }
 }
+
+bool Pelaaja::kadessa(const string& kortti) const {
+    return find(pelaajallaOlevatKortit.begin(), pelaajallaOlevatKortit.end(), kortti) != pelaajallaOlevatKortit.end();
+}
+
