@@ -28,50 +28,66 @@ int main()
     // Ratkaisun näyttäminen
     // naytaRatkaisu(ratkaisu);
 
-    // Kysytään pelaajalta haluaako tämä epäillä vai syyttää
+    // Kysytään pelaajalta haluaako tämä arvata vai syyttää
     int valinta;
     // Jos käyttäjä antaa muun vastauksen kuin 1 tai 2, ohjelma kysyy uudestaan
     do {
-        cout << "Haluatko esittää epäilyn vai syytöksen? (Epäily = 1, syytös = 2)" << endl;
+        cout << "Haluatko arvata vai syyttää? (Arvaus = 1, syytös = 2)" << endl;
         cout << "Valintasi: ";
         cin >> valinta;
-        cin.ignore(); // Syötteen tyhjennys
         if(valinta != 1 && valinta != 2) {
             cout << "Virheellinen syöte, anna joko numero 1 tai 2!" << endl;
         }
     } while(valinta != 1 && valinta != 2);
 
-    // Jos halutaan epäillä
+    // Jos halutaan arvata
     if(valinta == 1) {
         // Valitaan vastustaja jolta kortteja kysytään
         int vastustaja;
         cout << "Kummalta vastustajalta haluat kysyä kortteja? (Vastustaja 1 = 1, Vastustaja 2 = 2)" << endl;
         cout << "valintasi: ";
         cin >> vastustaja;
-        cin.ignore(); // Syötteen tyhjennys
+        cin.ignore(); // Syötteen tyhjennys, jotta epäillyn koko nimi toimii epäillyn valitsemisessa
 
         // Kysyttävien korttien valitseminen
-        string kysyttavaKortti;
-        cout << "Mitä korttia haluat kysyä? ";
+        string kysyttavaEpailty;
+        cout << "Arvaan, että murhaaja on "; // Syöte jatkaa lausetta
         // Epäillyn koko nimen toimimiseksi käytetään getline ja sstream
-        getline(cin, kysyttavaKortti);
-        stringstream stream(kysyttavaKortti);
+        getline(cin, kysyttavaEpailty);
+        stringstream stream(kysyttavaEpailty);
         string syote;
 
+        string kysyttavaAse;
+        cout << "Murha-aseena oli "; // Syöte jatkaa lausetta
+        cin >> kysyttavaAse;
+
+        string kysyttavaHuone;
+        cout << "Tapahtumapaikkana oli "; // Syöte päättää arvauksen
+        cin >> kysyttavaHuone;
+
         // Korttien kysyminen valitulta vastustajalta
-        if(pelaajat[vastustaja].kadessa(kysyttavaKortti)) {
-            cout << "LÖYTYY";
+        if(pelaajat[vastustaja].kadessa(kysyttavaEpailty)) {
+            cout << "EPÄILTY LÖYTYY" << endl;
         } else {
-            cout << "EI LÖYDY";
+            cout << "EPÄILTYÄ EI LÖYDY" << endl;
+        }
+
+        if(pelaajat[vastustaja].kadessa(kysyttavaAse)) {
+            cout << "ASE LÖYTYY" << endl;
+        } else {
+            cout << "ASETTA EI LÖYDY" << endl;
+        }
+
+        if(pelaajat[vastustaja].kadessa(kysyttavaHuone)) {
+            cout << "HUONE LÖYTYY" << endl;
+        } else {
+            cout << "HUONETTA EI LÖYDY" << endl;
         }
 
     } else if (valinta == 2) {
         cout << "Anna syytöksesi: " << endl;
         // Syytöstiedot ratkaisusta
     }
-
-
-
 
     return 0;
 }
