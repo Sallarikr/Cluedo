@@ -33,7 +33,7 @@ int main()
  //   naytaPelaajanKortit(pelaajat);
 
     // Ratkaisun näyttäminen
-     naytaRatkaisu(ratkaisu);
+    // naytaRatkaisu(ratkaisu);
 
     // Kysytään pelaajalta haluaako tämä arvata vai syyttää
     int valinta;
@@ -58,13 +58,27 @@ int main()
     } while(valinta != 1 && valinta != 2);
 
     // Jos halutaan arvata
-    if(valinta == 1) {
-        // Valitaan vastustaja jolta kortteja kysytään
+       if(valinta == 1) {
         int vastustaja;
+        do {
+        // Valitaan vastustaja jolta kortteja kysytään
         cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
         cout << "Kummalta vastustajalta haluat kysyä kortteja? (Vastustaja 1 = 1, Vastustaja 2 = 2)" << endl;
         cout << "valintasi: ";
         cin >> vastustaja;
+        if(cin.fail()) {
+            cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
+            cout << "Annathan vastauksesi vain numeroina!" << endl;
+            cin.clear();
+            cin.ignore();
+            continue;
+        }
+        if(vastustaja != 1 && vastustaja != 2) {
+            cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
+            cout << "Virheellinen syöte, anna joko numero 1 tai 2!" << endl;
+        }
+        } while(vastustaja != 1 && vastustaja != 2);
+        cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
         cin.ignore(); // Syötteen tyhjennys, jotta epäillyn koko nimi toimii epäillyn valitsemisessa
 
         // Kysyttävien korttien valitseminen
