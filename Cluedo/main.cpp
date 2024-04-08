@@ -32,144 +32,42 @@ int main()
     jaaKortit(pelaajat, kortit);
  //   naytaPelaajanKortit(pelaajat);
 
-    // Ratkaisun näyttäminen
+
+    // Ratkaisun näyttäminen koodauksen tueksi
     // naytaRatkaisu(ratkaisu);
 
-    // Kysytään pelaajalta haluaako tämä arvata vai syyttää
-    int valinta;
-    // Jos käyttäjä antaa muun vastauksen kuin 1 tai 2, ohjelma kysyy uudestaan
-    do {
+
+    // Pelaajien vuorottelu
+    int vuorossaOlevaPelaaja = 0;
+
+    string painallus;
+    cout << "Paina enteriä aloittaaksesi";
+    getline(cin, painallus); // Käytetään getlinea, jotta ei tarvitse painaa enteriä kahdesti
+    cin.clear();
+
+    // Jatketaan kunnes peli loppuu
+    bool peliLoppuu = false;
+    while(!peliLoppuu) {
+        Pelaaja vuorossa = pelaajat[vuorossaOlevaPelaaja];
         cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
-        cout << "Haluatko arvata vai syyttää? (Arvaus = 1, syytös = 2)" << endl;
-        cout << "Valintasi: ";
-        cin >> valinta;
-        if(cin.fail()) {
-            cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
-            cout << "Annathan vastauksesi vain numeroina!" << endl;
-            cin.clear();
-            cin.ignore();
-            continue;
-        }
+        cout << "-------------------------------------------------------------" << endl;
+        cout << endl;
+        cout << vuorossa.getNimi() << "n vuoro. Paina enteriä jatkaaksesi";
+        getline(cin, painallus); // Käytetään getlinea, jotta ei tarvitse painaa enteriä kahdesti
+        cin.clear();
 
-        if(valinta != 1 && valinta != 2) {
-            cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
-            cout << "Virheellinen syöte, anna joko numero 1 tai 2!" << endl;
-        }
-    } while(valinta != 1 && valinta != 2);
+        if(vuorossaOlevaPelaaja == 0) {
+            cout << endl;
 
-    // Jos halutaan arvata
-       if(valinta == 1) {
-        int vastustaja;
-        do {
-        // Valitaan vastustaja jolta kortteja kysytään
-        cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
-        cout << "Kummalta vastustajalta haluat kysyä kortteja? (Vastustaja 1 = 1, Vastustaja 2 = 2)" << endl;
-        cout << "valintasi: ";
-        cin >> vastustaja;
-        if(cin.fail()) {
-            cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
-            cout << "Annathan vastauksesi vain numeroina!" << endl;
-            cin.clear();
-            cin.ignore();
-            continue;
-        }
-        if(vastustaja != 1 && vastustaja != 2) {
-            cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
-            cout << "Virheellinen syöte, anna joko numero 1 tai 2!" << endl;
-        }
-        } while(vastustaja != 1 && vastustaja != 2);
-        cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
-        cin.ignore(); // Syötteen tyhjennys, jotta epäillyn koko nimi toimii epäillyn valitsemisessa
 
-        // Kysyttävien korttien valitseminen
-        string kysyttavaEpailty;
-        cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
-        cout << "Arvaan, että murhaaja on "; // Syöte jatkaa lausetta
-        // Epäillyn koko nimen toimimiseksi käytetään getline ja sstream
-        getline(cin, kysyttavaEpailty);
-        stringstream stream(kysyttavaEpailty);
-        string syote;
 
-        string kysyttavaAse;
-        cout << "Murha-aseena oli "; // Syöte jatkaa lausetta
-        cin >> kysyttavaAse;
-
-        string kysyttavaHuone;
-        cout << "Tapahtumapaikkana oli "; // Syöte päättää arvauksen
-        cin >> kysyttavaHuone;
-
-        // Korttien kysyminen valitulta vastustajalta
-        if(pelaajat[vastustaja].kadessa(kysyttavaEpailty)) {
-            cout << "EPÄILTY LÖYTYY" << endl;
-        } else {
-            cout << "EPÄILTYÄ EI LÖYDY" << endl;
-        }
-
-        if(pelaajat[vastustaja].kadessa(kysyttavaAse)) {
-            cout << "ASE LÖYTYY" << endl;
-        } else {
-            cout << "ASETTA EI LÖYDY" << endl;
-        }
-
-        if(pelaajat[vastustaja].kadessa(kysyttavaHuone)) {
-            cout << "HUONE LÖYTYY" << endl;
-        } else {
-            cout << "HUONETTA EI LÖYDY" << endl;
-        }
-
-    }
-    // Jos halutaan syyttää
-    else if (valinta == 2) {
-        cout << "Anna syytöksesi: " << endl;
-        cin.ignore(); // Syötteen tyhjennys, jotta epäillyn koko nimi toimii epäillyn valitsemisessa
-
-        string kysyttavaEpailty;
-        cout << "Syytökseni mukaan murhaaja on "; // Syöte jatkaa lausetta
-        // Epäillyn koko nimen toimimiseksi käytetään getline ja sstream
-        getline(cin, kysyttavaEpailty);
-        stringstream stream(kysyttavaEpailty);
-        string syote;
-
-        string kysyttavaAse;
-        cout << "Murha-aseena oli "; // Syöte jatkaa lausetta
-        cin >> kysyttavaAse;
-
-        string kysyttavaHuone;
-        cout << "Tapahtumapaikkana oli "; // Syöte päättää arvauksen
-        cin >> kysyttavaHuone;
-
-        int lkm = 0;
-
-        if(tarkistaSyytos(ratkaisu, kysyttavaEpailty)) {
-            ++lkm;
-        }
-
-        if(tarkistaSyytos(ratkaisu, kysyttavaAse)) {
-            ++lkm;
-        }
-
-        if(tarkistaSyytos(ratkaisu, kysyttavaHuone)) {
-            ++lkm;
-        }
-
-        // Jos syytös on oikein
-        if(lkm == 3) {
-            cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
-            cout << "Onneksi olkoon, voitit pelin!" << endl;
-        }
-        // Jos syytös on väärin
-        else {
-            int paatos;
-            cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
-            cout << "Voi harmi, syytöksesi oli väärin" << endl;
-
-            // Kysytään halutaanko lopettaa vai jatkaa
+            // Kysytään pelaajalta haluaako tämä arvata vai syyttää
+            int valinta;
+            // Jos käyttäjä antaa muun vastauksen kuin 1 tai 2, ohjelma kysyy uudestaan
             do {
-                cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
-                cout << "Haluatko lopettaa pelin, vai katsoa, kumpi vastustajistasi vie voiton? (Lopetus = 1, katsominen = 2)" << endl;
+                cout << "Haluatko arvata vai syyttää? (Arvaus = 1, syytös = 2)" << endl;
                 cout << "Valintasi: ";
-                cin >> paatos;
-
+                cin >> valinta;
                 if(cin.fail()) {
                     cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
                     cout << "Annathan vastauksesi vain numeroina!" << endl;
@@ -177,19 +75,194 @@ int main()
                     cin.ignore();
                     continue;
                 }
-                if(paatos != 1 && paatos != 2) {
+
+                if(valinta != 1 && valinta != 2) {
+                    cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
                     cout << "Virheellinen syöte, anna joko numero 1 tai 2!" << endl;
                 }
-            } while(paatos != 1 && paatos != 2);
+            } while(valinta != 1 && valinta != 2);
 
-            // Jos lopetetaan
-            if(paatos == 1) {
-                cout << "Ensi kertaan!" << endl;
-                exit(0);
-            } else if(paatos == 2) {
-                // TÄHÄN KATSOMINEN
+            // Jos halutaan arvata
+            if(valinta == 1) {
+                int vastustaja;
+                do {
+                    // Valitaan vastustaja jolta kortteja kysytään
+                    cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
+                    cout << "Kummalta vastustajalta haluat kysyä kortteja? (Vastustaja 1 = 1, Vastustaja 2 = 2)" << endl;
+                    cout << "valintasi: ";
+                    cin >> vastustaja;
+                    if(cin.fail()) {
+                        cout << "Annathan vastauksesi vain numeroina!" << endl;
+                        cin.clear();
+                        cin.ignore();
+                        continue;
+                    }
+                    if(vastustaja != 1 && vastustaja != 2) {
+                        cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
+                        cout << "Virheellinen syöte, anna joko numero 1 tai 2!" << endl;
+                    }
+                } while(vastustaja != 1 && vastustaja != 2);
+                cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
+                cin.ignore(); // Syötteen tyhjennys, jotta epäillyn koko nimi toimii epäillyn valitsemisessa
+
+                // Kysyttävien korttien valitseminen
+                string kysyttavaEpailty;
+                cout << "Arvaan, että murhaaja on "; // Syöte jatkaa lausetta
+                // Epäillyn koko nimen toimimiseksi käytetään getline ja sstream
+                getline(cin, kysyttavaEpailty);
+                stringstream stream(kysyttavaEpailty);
+                string syote;
+
+                string kysyttavaAse;
+                cout << "Murha-aseena oli "; // Syöte jatkaa lausetta
+                cin >> kysyttavaAse;
+
+                string kysyttavaHuone;
+                cout << "Tapahtumapaikkana oli "; // Syöte päättää arvauksen
+                cin >> kysyttavaHuone;
+
+                // Korttien kysyminen valitulta vastustajalta
+                if(pelaajat[vastustaja].kadessa(kysyttavaEpailty)) {
+                    cout << "EPÄILTY LÖYTYY" << endl;
+                } else {
+                    cout << "EPÄILTYÄ EI LÖYDY" << endl;
+                }
+
+                if(pelaajat[vastustaja].kadessa(kysyttavaAse)) {
+                    cout << "ASE LÖYTYY" << endl;
+                } else {
+                    cout << "ASETTA EI LÖYDY" << endl;
+                }
+
+                if(pelaajat[vastustaja].kadessa(kysyttavaHuone)) {
+                    cout << "HUONE LÖYTYY" << endl;
+                } else {
+                    cout << "HUONETTA EI LÖYDY" << endl;
+                }
+
             }
+            // Jos halutaan syyttää
+            else if (valinta == 2) {
+                cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
+                cout << "Anna syytöksesi: " << endl;
+                cin.ignore(); // Syötteen tyhjennys, jotta epäillyn koko nimi toimii epäillyn valitsemisessa
+
+                 naytaRatkaisu(ratkaisu);
+
+
+                string kysyttavaEpailty;
+                cout << "Syytökseni mukaan murhaaja on "; // Syöte jatkaa lausetta
+                // Epäillyn koko nimen toimimiseksi käytetään getline ja sstream
+                getline(cin, kysyttavaEpailty);
+                stringstream stream(kysyttavaEpailty);
+                string syote;
+
+                string kysyttavaAse;
+                cout << "Murha-aseena oli "; // Syöte jatkaa lausetta
+                cin >> kysyttavaAse;
+
+                string kysyttavaHuone;
+                cout << "Tapahtumapaikkana oli "; // Syöte päättää arvauksen
+                cin >> kysyttavaHuone;
+
+                int lkm = 0;
+
+                if(tarkistaSyytos(ratkaisu, kysyttavaEpailty)) {
+                    ++lkm;
+                }
+
+                if(tarkistaSyytos(ratkaisu, kysyttavaAse)) {
+                    ++lkm;
+                }
+
+                if(tarkistaSyytos(ratkaisu, kysyttavaHuone)) {
+                    ++lkm;
+                }
+                cout << endl;
+                cout << "*************************************************************" << endl;
+
+                // Jos syytös on väärin
+                if(lkm != 3)                {
+                    int paatos;
+                    cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
+
+                    cout << "Voi harmi, syytöksesi oli väärin!" << endl;
+                    cout << "Oikea ratkaisu on: " << endl;
+                    naytaRatkaisu(ratkaisu);
+                    cout << endl;
+
+                    // Kysytään halutaanko lopettaa vai jatkaa
+                    do {
+                        cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
+                        cout << "Haluatko lopettaa pelin, vai katsoa, kumpi vastustajistasi vie voiton? (Lopetus = 1, katsominen = 2)" << endl;
+                        cout << "Valintasi: ";
+                        cin >> paatos;
+
+                        if(cin.fail()) {
+                            cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
+                            cout << "Annathan vastauksesi vain numeroina!" << endl;
+                            cin.clear();
+                            cin.ignore();
+                            continue;
+                        }
+                        if(paatos != 1 && paatos != 2) {
+                            cout << "Virheellinen syöte, anna joko numero 1 tai 2!" << endl;
+                        }
+                    } while(paatos != 1 && paatos != 2);
+
+                    // Jos lopetetaan
+                    if(paatos == 1) {
+                        cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
+                        cout << "Ensi kertaan!" << endl;
+                        cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
+                        exit(0);
+                    } else if(paatos == 2) {
+                        // TÄHÄN KATSOMINEN
+                    }
+                }
+                // Jos syytös on oikein
+                else {
+                    cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
+                    cout << "Onneksi olkoon, voitit pelin!" << endl;
+                    cout << endl;
+                    peliLoppuu = true;
+                }
+
+            }
+
+            // Syötteen tyhjennys, jotta seuraavan pelaajan vuoro toimii
+            cin.ignore();
+            cin.clear();
+
+
+
+        } else if (vuorossaOlevaPelaaja == 1) {
+            cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
+            cout << "Vastustaja 1 toiminnallisuus" << endl;
+            cout << endl;
+            cout << "Paina enteriä jatkaaksesi";
+            getline(cin, painallus); // Käytetään getlinea, jotta ei tarvitse painaa enteriä kahdesti
+            cin.clear();
+
+        } else {
+            cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
+            cout << "Vastustaja 2 toiminnallisuus" << endl;
+            cout << endl;
+            cout << "Paina enteriä jatkaaksesi";
+            getline(cin, painallus); // Käytetään getlinea, jotta ei tarvitse painaa enteriä kahdesti
+            cin.clear();
+
         }
+        // LOGIIKKA
+
+        vuorossaOlevaPelaaja = (vuorossaOlevaPelaaja + 1) % pelaajat.size();
+
     }
+
+
+
+
+
+
     return 0;
 }
