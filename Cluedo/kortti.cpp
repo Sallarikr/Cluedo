@@ -6,11 +6,23 @@
 
 using namespace std;
 
-// Epäiltyjen, aseiden ja huoneiden luominen korteiksi
 void luoKortit(vector<string>& kortit, vector<string>& ratkaisu) {
+    // Epäiltyjen, aseiden ja huoneiden luominen korteiksi
     vector<string> epaillyt = {"Pastori Viherlevä", "Eversti Keltanokka", "Tohtori Pinkkilä", "Rouva Siniverinen", "Professori Purppuravalo", "Neiti Punakulta"};
     vector<string> aseet = {"Kynttilänjalka", "Tikari", "Putki", "Revolveri", "Köysi", "Jakoavain"};
     vector<string> huoneet = {"Tanssisali", "Biljardihuone", "Kasvihuone", "Ruokasali", "Kylpyhuone", "Keittiö", "Kirjasto", "Lepohuone", "Työhuone"};
+
+
+    // Luodaan tyhjät vektorit kaikkien pelaajien näkemille korteille, ja heidän syytöskuorilleen
+    vector<string> pelaajanNakemat;
+    vector<string> pelaajanSyytos;
+
+    vector<string> vastustaja1Nakemat;
+    vector<string> vastustaja1Syytos;
+
+    vector<string> vastustaja2Nakemat;
+    vector<string> vastustaja2Syytos;
+
 
     // Korttien sekoitus
     srand(time(nullptr));

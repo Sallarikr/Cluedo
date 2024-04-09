@@ -11,7 +11,7 @@ using namespace std;
 
 // Syytöksen tarkistaminen
 bool tarkistaSyytos(const vector<string>& ratkaisu, const string& kysyttavaAse) {
-   return find(ratkaisu.begin(), ratkaisu.end(), kysyttavaAse) != ratkaisu.end();
+    return find(ratkaisu.begin(), ratkaisu.end(), kysyttavaAse) != ratkaisu.end();
 }
 
 int main()
@@ -30,24 +30,27 @@ int main()
 
     // Korttien jako
     jaaKortit(pelaajat, kortit);
- //   naytaPelaajanKortit(pelaajat);
-
+    naytaPelaajanKortit(pelaajat);
 
     // Ratkaisun näyttäminen koodauksen tueksi
     // naytaRatkaisu(ratkaisu);
-
 
     // Pelaajien vuorottelu
     int vuorossaOlevaPelaaja = 0;
 
     string painallus;
-    cout << "Paina enteriä aloittaaksesi";
-    getline(cin, painallus); // Käytetään getlinea, jotta ei tarvitse painaa enteriä kahdesti
-    cin.clear();
 
     // Jatketaan kunnes peli loppuu
     bool peliLoppuu = false;
+
+
+    // Kierrosten laskeminen, parillisuus määrittää keneltä vastustaja kysyy kortteja
+    int v1Kierros = 1;
+    int v2Kierros = 1;
+
+
     while(!peliLoppuu) {
+
         Pelaaja vuorossa = pelaajat[vuorossaOlevaPelaaja];
         cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
         cout << "-------------------------------------------------------------" << endl;
@@ -57,10 +60,7 @@ int main()
         cin.clear();
 
         if(vuorossaOlevaPelaaja == 0) {
-            cout << endl;
-
-
-
+            cout << "pelaaja" << endl;
             // Kysytään pelaajalta haluaako tämä arvata vai syyttää
             int valinta;
             // Jos käyttäjä antaa muun vastauksen kuin 1 tai 2, ohjelma kysyy uudestaan
@@ -121,23 +121,41 @@ int main()
                 cout << "Tapahtumapaikkana oli "; // Syöte päättää arvauksen
                 cin >> kysyttavaHuone;
 
-                // Korttien kysyminen valitulta vastustajalta
-                if(pelaajat[vastustaja].kadessa(kysyttavaEpailty)) {
-                    cout << "EPÄILTY LÖYTYY" << endl;
-                } else {
-                    cout << "EPÄILTYÄ EI LÖYDY" << endl;
+                cout << endl;
+                cout << "*************************************************************" << endl;
+                cout << endl;
+
+
+                // Korttien kysyminen valitulta vastustajalta 
+                // Epäillyn tarkistaminen
+                if(pelaajat[vastustaja].kadessa(kysyttavaEpailty) && !pelaajat[0].onNahnytKortin(kysyttavaEpailty)) {
+                    cout << "Vastustajalla on kysymäsi epäilty " + kysyttavaEpailty << endl;
+                    pelaajat[0].lisaaKorttiNahtyihin(kysyttavaEpailty);
+
+                    // Aseen tarkistaminen
+                }  else if(pelaajat[vastustaja].kadessa(kysyttavaAse) && !pelaajat[0].onNahnytKortin(kysyttavaAse)) {
+                    cout << "Vastustajalla on kysymäsi ase " + kysyttavaAse << endl;
+                    pelaajat[0].lisaaKorttiNahtyihin(kysyttavaAse);
+
+                }
+                // Huoneen tarkistaminen
+                else if(pelaajat[vastustaja].kadessa(kysyttavaHuone) && !pelaajat[0].onNahnytKortin(kysyttavaHuone)) {
+                    cout << "Vastustajalla on kysymäsi huone " + kysyttavaHuone << endl;
+                    pelaajat[0].lisaaKorttiNahtyihin(kysyttavaHuone);
                 }
 
-                if(pelaajat[vastustaja].kadessa(kysyttavaAse)) {
-                    cout << "ASE LÖYTYY" << endl;
-                } else {
-                    cout << "ASETTA EI LÖYDY" << endl;
-                }
 
-                if(pelaajat[vastustaja].kadessa(kysyttavaHuone)) {
-                    cout << "HUONE LÖYTYY" << endl;
-                } else {
-                    cout << "HUONETTA EI LÖYDY" << endl;
+                else {
+                    cout << "Valitsemallasi pelaajalla ei ole kysymiäsi kortteja tai olet nähnyt kortit jo!";
+                    cout << endl;
+                }
+                // Tulostetaan jokaisen pelaajan näkemät aseet
+                for(const auto& pelaaja : pelaajat) {
+                    cout << pelaaja.getNimi() + "n näkemät aseet: " << endl;
+                    for(const auto& ase : pelaaja.getPelaajanNakematAseet()) {
+                        cout << ase << endl;
+                    }
+                    cout << endl;
                 }
 
             }
@@ -147,7 +165,7 @@ int main()
                 cout << "Anna syytöksesi: " << endl;
                 cin.ignore(); // Syötteen tyhjennys, jotta epäillyn koko nimi toimii epäillyn valitsemisessa
 
-                 naytaRatkaisu(ratkaisu);
+                naytaRatkaisu(ratkaisu);
 
 
                 string kysyttavaEpailty;
@@ -237,17 +255,48 @@ int main()
 
 
         } else if (vuorossaOlevaPelaaja == 1) {
+
+            cout << v1Kierros;
+
+            if (v1Kierros % 2 == 0) {
+                cout << "kysytään pelaajalta";
+            } else {
+                cout << "kysytään v2:lta";
+            }
+
+
+
+            cout << endl;
+
+
+            listaaNahdytKortit(pelaajat);
             cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
-            cout << "Vastustaja 1 toiminnallisuus" << endl;
+
+
+            ++v1Kierros;
+
             cout << endl;
             cout << "Paina enteriä jatkaaksesi";
             getline(cin, painallus); // Käytetään getlinea, jotta ei tarvitse painaa enteriä kahdesti
             cin.clear();
 
         } else {
-            cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
-            cout << "Vastustaja 2 toiminnallisuus" << endl;
+
+
+            cout << v2Kierros;
+
+            if (v2Kierros % 2 == 0) {
+                cout <<  " kysytään v1:ltä";
+
+            } else {
+                cout << "kysytään pelaajalta" ;
+
+            }
+
             cout << endl;
+
+            ++v2Kierros;
+
             cout << "Paina enteriä jatkaaksesi";
             getline(cin, painallus); // Käytetään getlinea, jotta ei tarvitse painaa enteriä kahdesti
             cin.clear();
@@ -263,6 +312,6 @@ int main()
 
 
 
-
     return 0;
+
 }
