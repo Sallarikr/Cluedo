@@ -8,7 +8,6 @@
 
 using namespace std;
 
-
 class Pelaaja {
 public:
     Pelaaja(const string& pelaajanNimi);
@@ -85,7 +84,6 @@ public:
         return nakemattomatKortit;
     }
 
-
     // Poistaa kortin pelaajan näkemättömien korteista, jos se siellä on
     void poistaNakematon(const string& kortti) {
         auto it = find(nakemattomatKortit.begin(), nakemattomatKortit.end(), kortti);
@@ -99,7 +97,7 @@ public:
         listaus.erase(remove(listaus.begin(), listaus.end(), item), listaus.end());
     }
 
-    void muokkaaListaaV1(vector<string>& listaEpaillytV1, vector<string>& listaAseetV1, vector<string>& listaHuoneetV1, const vector<string>& nakemattomatKortit) {
+   void muokkaaListaaV1(vector<string>& listaEpaillytV1, vector<string>& listaAseetV1, vector<string>& listaHuoneetV1, const vector<string>& nakemattomatKortit) {
         for (const auto& kortti : nakemattomatKortit) {
             removeItem(listaEpaillytV1, kortti);
             removeItem(listaAseetV1, kortti);
@@ -115,16 +113,13 @@ public:
         }
     }
 
-
     void naytaPelaajanKortit() const;
     void listaaNahdytKortit(const vector<string>& epaillyt, const vector<string>& aseet, const vector<string>& huoneet);
-
 
 private:
     string nimi;
     vector<string> pelaajallaOlevatKortit;
     vector<string> nahdytKortit;
-
     set<string> pelaajanNakematEpaillyt;
     set<string> pelaajanNakematAseet;
     set<string> pelaajanNakematHuoneet;

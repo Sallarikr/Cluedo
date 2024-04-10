@@ -4,7 +4,7 @@
 #include <iostream>
 #include "kortti.h"
 
-    using namespace std;
+using namespace std;
 
 void luoKortit(vector<string>& kortit, vector<string>& ratkaisu) {
     // Epäiltyjen, aseiden ja huoneiden luominen korteiksi
@@ -39,8 +39,6 @@ void luoKortit(vector<string>& kortit, vector<string>& ratkaisu) {
     // Sekoitetaan korttipakka
     random_shuffle(kortit.begin(), kortit.end());
 }
-
-
 
 // Ratkaisun näyttäminen
 void naytaRatkaisu(const vector<string>& ratkaisu) {
