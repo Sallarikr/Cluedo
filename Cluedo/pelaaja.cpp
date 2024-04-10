@@ -83,4 +83,3 @@ void Pelaaja::lisaaKorttiNahtyihin(const string& kortti) {
 const set<string>& Pelaaja::getPelaajanNakematKortit() const {
     return pelaajanNakematKortit;
 }
-

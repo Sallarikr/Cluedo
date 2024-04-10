@@ -3,7 +3,6 @@
 #include <vector>
 #include <string>
 #include <sstream>
-#include <cstdlib>
 #include "kortti.h"
 #include "pelaaja.h"
 
@@ -126,7 +125,7 @@ int main()
                 cout << endl;
 
 
-                // Korttien kysyminen valitulta vastustajalta 
+                // Korttien kysyminen valitulta vastustajalta
                 // Epäillyn tarkistaminen
                 if(pelaajat[vastustaja].kadessa(kysyttavaEpailty) && !pelaajat[0].onNahnytKortin(kysyttavaEpailty)) {
                     cout << "Vastustajalla on kysymäsi epäilty " + kysyttavaEpailty << endl;
@@ -201,42 +200,14 @@ int main()
 
                 // Jos syytös on väärin
                 if(lkm != 3)                {
-                    int paatos;
                     cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
 
                     cout << "Voi harmi, syytöksesi oli väärin!" << endl;
+                    cout << endl;
                     cout << "Oikea ratkaisu on: " << endl;
                     naytaRatkaisu(ratkaisu);
                     cout << endl;
-
-                    // Kysytään halutaanko lopettaa vai jatkaa
-                    do {
-                        cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
-                        cout << "Haluatko lopettaa pelin, vai katsoa, kumpi vastustajistasi vie voiton? (Lopetus = 1, katsominen = 2)" << endl;
-                        cout << "Valintasi: ";
-                        cin >> paatos;
-
-                        if(cin.fail()) {
-                            cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
-                            cout << "Annathan vastauksesi vain numeroina!" << endl;
-                            cin.clear();
-                            cin.ignore();
-                            continue;
-                        }
-                        if(paatos != 1 && paatos != 2) {
-                            cout << "Virheellinen syöte, anna joko numero 1 tai 2!" << endl;
-                        }
-                    } while(paatos != 1 && paatos != 2);
-
-                    // Jos lopetetaan
-                    if(paatos == 1) {
-                        cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
-                        cout << "Ensi kertaan!" << endl;
-                        cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
-                        exit(0);
-                    } else if(paatos == 2) {
-                        // TÄHÄN KATSOMINEN
-                    }
+                    peliLoppuu = true;
                 }
                 // Jos syytös on oikein
                 else {
@@ -245,7 +216,6 @@ int main()
                     cout << endl;
                     peliLoppuu = true;
                 }
-
             }
 
             // Syötteen tyhjennys, jotta seuraavan pelaajan vuoro toimii
@@ -302,7 +272,6 @@ int main()
             cin.clear();
 
         }
-        // LOGIIKKA
 
         vuorossaOlevaPelaaja = (vuorossaOlevaPelaaja + 1) % pelaajat.size();
 

@@ -58,4 +58,3 @@ void naytaRatkaisu(const vector<string>& ratkaisu) {
         cout << kortti << endl;
     }
 }
-
