@@ -18,8 +18,6 @@ public:
         return pelaajallaOlevatKortit;
     }
 
-
-
     string getNimi() const;
     bool kadessa(const string& kortti) const;
 
@@ -78,12 +76,6 @@ public:
             kortit.erase(remove(kortit.begin(), kortit.end(), kortti), kortit.end());
         }
     }
-
-
-
-
-
-
 
     void lisaaNakemattomiin(const string& kortti) {
         nakemattomatKortit.push_back(kortti);
