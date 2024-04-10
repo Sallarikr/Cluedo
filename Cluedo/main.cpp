@@ -8,10 +8,51 @@
 
 using namespace std;
 
+string poistettava1Epailty;
+string poistettava1Ase;
+string poistettava1Huone;
+string poistettava2Epailty;
+string poistettava2Ase;
+string poistettava2Huone;
+
 // Syytöksen tarkistaminen
 bool tarkistaSyytos(const vector<string>& ratkaisu, const string& kysyttavaAse) {
     return find(ratkaisu.begin(), ratkaisu.end(), kysyttavaAse) != ratkaisu.end();
 }
+
+
+// Poistetaan kortti vektorista
+void removeItem(vector<string>& listaus, const string& item) {
+    listaus.erase(remove(listaus.begin(), listaus.end(), item), listaus.end());
+}
+
+// Vastustajan 1 kirjauskortin sisältö
+void vastus1Kirjaus(vector<string>& epaillyt,
+                    vector<string>& aseet,
+                    vector<string>& huoneet,
+                    const string& poistettava1Epailty,
+                    const string& poistettava1Ase,
+                    const string& poistettava1Huone) {
+    // Poistetaan kortin tiedot vektorista
+    removeItem(epaillyt, poistettava1Epailty);
+    removeItem(aseet, poistettava1Ase);
+    removeItem(huoneet, poistettava1Huone);
+}
+
+
+// Vastustajan 2 kirjauskortin sisältö
+void vastus2Kirjaus(vector<string>& epaillyt,
+                    vector<string>& aseet,
+                    vector<string>& huoneet,
+                    const string& poistettava2Epailty,
+                    const string& poistettava2Ase,
+                    const string& poistettava2Huone) {
+    // Poistetaan kortin tiedot vektorista
+    removeItem(epaillyt, poistettava2Epailty);
+    removeItem(aseet, poistettava2Ase);
+    removeItem(huoneet, poistettava2Huone);
+}
+
 
 int main()
 {
@@ -42,11 +83,13 @@ int main()
     // Jatketaan kunnes peli loppuu
     bool peliLoppuu = false;
 
+    poistettava1Epailty = "Neiti Punakulta";
+    poistettava2Epailty = "Tohtori Pinkkilä";
 
-    // Kierrosten laskeminen, parillisuus määrittää keneltä vastustaja kysyy kortteja
-    int v1Kierros = 1;
-    int v2Kierros = 1;
-
+    // Tuodaan tiedot myös tänne vastustajien kysymysten esittämistä varten
+    vector<string> epaillyt = {"Pastori Viherlevä", "Eversti Keltanokka", "Tohtori Pinkkilä", "Rouva Siniverinen", "Professori Purppuravalo", "Neiti Punakulta"};
+    vector<string> aseet = {"Kynttilänjalka", "Tikari", "Putki", "Revolveri", "Köysi", "Jakoavain"};
+    vector<string> huoneet = {"Tanssisali", "Biljardihuone", "Kasvihuone", "Ruokasali", "Kylpyhuone", "Keittiö", "Kirjasto", "Lepohuone", "Työhuone"};
 
     while(!peliLoppuu) {
 
@@ -226,24 +269,39 @@ int main()
 
         } else if (vuorossaOlevaPelaaja == 1) {
 
-            cout << v1Kierros;
+            // Vastustajan 1 näkemien korttien kirjauslomake
+            vector<string> epaillytV1 = epaillyt;
+            vector<string> aseetV1 = aseet;
+            vector<string> huoneetV1 = huoneet;
 
-            if (v1Kierros % 2 == 0) {
-                cout << "kysytään pelaajalta";
-            } else {
-                cout << "kysytään v2:lta";
+            vastus1Kirjaus(epaillytV1, aseetV1, huoneetV1, poistettava1Epailty, poistettava1Ase, poistettava1Huone);
+
+            // Korttien tulostus koodauksen tueksi
+            cout << "Vastustaja 1:n näkemät epäillyt:" << endl;
+            for (const auto& item : epaillytV1) {
+                cout << item << " ";
             }
+            cout << endl;;
 
+            cout << "Vastustaja 1:n näkemät aseet:" << endl;
+            for (const auto& item : aseetV1) {
+                cout << item << " ";
+            }
+            cout << endl;;
 
+            cout << "Vastustaja 1:n näkemät huoneet:" << endl;
+            for (const auto& item : huoneetV1) {
+                cout << item << " ";
+            }
+            cout << endl;;
 
             cout << endl;
 
 
-            listaaNahdytKortit(pelaajat);
+            //     listaaNahdytKortit(pelaajat);
             cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
 
 
-            ++v1Kierros;
 
             cout << endl;
             cout << "Paina enteriä jatkaaksesi";
@@ -252,20 +310,32 @@ int main()
 
         } else {
 
+            // Vastustajan 2 näkemien korttien kirjauslomake
+            vector<string> epaillytV2 = epaillyt;
+            vector<string> aseetV2 = aseet;
+            vector<string> huoneetV2 = huoneet;
 
-            cout << v2Kierros;
+            vastus2Kirjaus(epaillytV2, aseetV2, huoneetV2, poistettava2Epailty, poistettava2Ase, poistettava2Huone);
 
-            if (v2Kierros % 2 == 0) {
-                cout <<  " kysytään v1:ltä";
-
-            } else {
-                cout << "kysytään pelaajalta" ;
-
+            // Korttien tulostus koodauksen tueksi
+            cout << "Vastustaja 2:n näkemät epäillyt:" << endl;
+            for (const auto& item : epaillytV2) {
+                cout << item << " ";
             }
+            cout << endl;;
 
-            cout << endl;
+            cout << "Vastustaja 2:n näkemät aseet:" << endl;
+            for (const auto& item : aseetV2) {
+                cout << item << " ";
+            }
+            cout << endl;;
 
-            ++v2Kierros;
+            cout << "Vastustaja 2:n näkemät huoneet:" << endl;
+            for (const auto& item : huoneetV2) {
+                cout << item << " ";
+            }
+            cout << endl;;
+
 
             cout << "Paina enteriä jatkaaksesi";
             getline(cin, painallus); // Käytetään getlinea, jotta ei tarvitse painaa enteriä kahdesti
