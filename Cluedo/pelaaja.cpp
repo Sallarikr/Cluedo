@@ -2,7 +2,7 @@
 #include <algorithm>
 #include "pelaaja.h"
 
-using namespace std;
+    using namespace std;
 
 Pelaaja::Pelaaja(const string& pelaajanNimi) : nimi(pelaajanNimi) {}
 
@@ -31,9 +31,9 @@ void jaaKortit(vector<Pelaaja>& pelaajat, vector<string>& kortit) {
 // Näytetään kaikki pelaajalla olevat kortit
 void naytaPelaajanKortit(const vector<Pelaaja>& pelaajat) {
     for(const auto& pelaaja : pelaajat) {
-        cout << pelaaja.getNimi() + ":n kortit:" << endl;
+        cout << pelaaja.getNimi() + "n kortit:" << endl;
         for(const auto& kortti : pelaaja.getPelaajallaOlevatKortit()) {
-            cout << kortti << endl;
+            cout << kortti << ", ";
         }
         cout << endl;
     }
@@ -44,19 +44,35 @@ bool Pelaaja::kadessa(const string& kortti) const {
     return find(pelaajallaOlevatKortit.begin(), pelaajallaOlevatKortit.end(), kortti) != pelaajallaOlevatKortit.end();
 }
 
+vector<string> epaillyt = {"Pastori Viherlevä", "Eversti Keltanokka", "Tohtori Pinkkilä", "Rouva Siniverinen", "Professori Purppuravalo", "Neiti Punakulta"};
+vector<string> aseet = {"Kynttilänjalka", "Tikari", "Putki", "Revolveri", "Köysi", "Jakoavain"};
+vector<string> huoneet = {"Tanssisali", "Biljardihuone", "Kasvihuone", "Ruokasali", "Kylpyhuone", "Keittiö", "Kirjasto", "Lepohuone", "Työhuone"};
 
+void Pelaaja::listaaNahdytKortit(const vector<string>& epaillyt, const vector<string>& aseet, const vector<string>& huoneet) {
+    cout << nimi + "n näkemät kortit: " << endl;
 
-void listaaNahdytKortit(const vector<Pelaaja>& pelaajat) {
-    for(const auto& pelaaja : pelaajat) {
-        cout << pelaaja.getNimi() + "n näkemät kortit: " << endl;
-        for(const auto& kortti : pelaaja.getPelaajanNakematKortit()) {
-            cout << kortti << endl;
+    cout << "Epäillyt:" << endl;
+    for(const auto& kortti : pelaajanNakematKortit) {
+        if (find(epaillyt.begin(), epaillyt.end(), kortti) != epaillyt.end()) {
+            cout << kortti << ", ";
         }
-        cout << endl;
     }
 
-}
+    cout << "Aseet:" << endl;
+    for(const auto& kortti : pelaajanNakematKortit) {
+        if (find(aseet.begin(), aseet.end(), kortti) != aseet.end()) {
+            cout << kortti << ", ";;
+        }
+    }
 
+    cout << "Huoneet:" << endl;
+    for(const auto& kortti : pelaajanNakematKortit) {
+        if (find(huoneet.begin(), huoneet.end(), kortti) != huoneet.end()) {
+            cout << kortti << ", ";;
+        }
+    }
+    cout << endl;
+}
 // Annetaan pelaajalle kortti
 void Pelaaja::korttiNahty(const string& kortti) {
     nahdytKortit.push_back(kortti);
@@ -83,3 +99,4 @@ void Pelaaja::lisaaKorttiNahtyihin(const string& kortti) {
 const set<string>& Pelaaja::getPelaajanNakematKortit() const {
     return pelaajanNakematKortit;
 }
+

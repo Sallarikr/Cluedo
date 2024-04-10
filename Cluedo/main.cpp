@@ -2,11 +2,12 @@
 #include <algorithm>
 #include <vector>
 #include <string>
+#include <random>
 #include <sstream>
 #include "kortti.h"
 #include "pelaaja.h"
 
-using namespace std;
+    using namespace std;
 
 string poistettava1Epailty;
 string poistettava1Ase;
@@ -20,19 +21,26 @@ bool tarkistaSyytos(const vector<string>& ratkaisu, const string& kysyttavaAse) 
     return find(ratkaisu.begin(), ratkaisu.end(), kysyttavaAse) != ratkaisu.end();
 }
 
-
 // Poistetaan kortti vektorista
-void removeItem(vector<string>& listaus, const string& item) {
-    listaus.erase(remove(listaus.begin(), listaus.end(), item), listaus.end());
+void removeItem(vector<string>& mainus, const string& item) {
+    mainus.erase(remove(mainus.begin(), mainus.end(), item), mainus.end());
+}
+
+string satunnaisKortti(const vector<string>& mainus) {
+    if (mainus.empty()) return "";
+    // Generoidaan satunnainen numero
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<> dis(0, mainus.size() - 1);
+    // Generoidaan satunnainen indeksi
+    int satunnaisIndeksi = dis(gen);
+    // Satunnainen kortti
+    return mainus[satunnaisIndeksi];
 }
 
 // Vastustajan 1 kirjauskortin sisältö
-void vastus1Kirjaus(vector<string>& epaillyt,
-                    vector<string>& aseet,
-                    vector<string>& huoneet,
-                    const string& poistettava1Epailty,
-                    const string& poistettava1Ase,
-                    const string& poistettava1Huone) {
+void vastus1Kirjaus(vector<string>& epaillyt, vector<string>& aseet, vector<string>& huoneet,
+                    const string& poistettava1Epailty, const string& poistettava1Ase, const string& poistettava1Huone) {
     // Poistetaan kortin tiedot vektorista
     removeItem(epaillyt, poistettava1Epailty);
     removeItem(aseet, poistettava1Ase);
@@ -41,17 +49,61 @@ void vastus1Kirjaus(vector<string>& epaillyt,
 
 
 // Vastustajan 2 kirjauskortin sisältö
-void vastus2Kirjaus(vector<string>& epaillyt,
-                    vector<string>& aseet,
-                    vector<string>& huoneet,
-                    const string& poistettava2Epailty,
-                    const string& poistettava2Ase,
-                    const string& poistettava2Huone) {
+void vastus2Kirjaus(vector<string>& epaillyt, vector<string>& aseet,vector<string>& huoneet,
+                    const string& poistettava2Epailty, const string& poistettava2Ase, const string& poistettava2Huone) {
     // Poistetaan kortin tiedot vektorista
     removeItem(epaillyt, poistettava2Epailty);
     removeItem(aseet, poistettava2Ase);
     removeItem(huoneet, poistettava2Huone);
 }
+
+void muokkaamainaV1(vector<string>& mainEpaillytV1, vector<string>& mainAseetV1, vector<string>& mainHuoneetV1, const vector<string>& nakemattomatKortit) {
+    // Kortin poisto
+    for (const auto& kortti : nakemattomatKortit) {
+        removeItem(mainEpaillytV1, kortti);
+        removeItem(mainAseetV1, kortti);
+        removeItem(mainHuoneetV1, kortti);
+    }
+}
+
+void muokkaamainaV2(vector<string>& mainEpaillytV2, vector<string>& mainAseetV2, vector<string>& mainHuoneetV2, const vector<string>& nakemattomatKortit) {
+    // Kortin poisto
+    for (const auto& kortti : nakemattomatKortit) {
+        removeItem(mainEpaillytV2, kortti);
+        removeItem(mainAseetV2, kortti);
+        removeItem(mainHuoneetV2, kortti);
+    }
+}
+
+
+void tulostaKaikkiKortit(const vector<string>& epaillyt, const vector<string>& aseet, const vector<string>& huoneet) {
+    cout << "Kaikki kortit pelissä:" << endl;
+    cout << endl;
+
+    // Tulostetaan epäillyt
+    cout << "Epäillyt:" << endl;
+    for (const auto& epailty : epaillyt) {
+        cout << epailty << ", ";
+    }
+    cout << endl;
+    cout << endl;
+
+    // Tulostetaan aseet
+    cout << "Aseet:" << endl;
+    for (const auto& ase : aseet) {
+        cout << ase << ", ";
+    }
+    cout << endl;
+    cout << endl;
+
+    // Tulostetaan huoneet
+    cout << "Huoneet:" << endl;
+    for (const auto& huone : huoneet) {
+        cout << huone << ", ";
+    }
+    cout << endl;
+}
+
 
 
 int main()
@@ -81,20 +133,37 @@ int main()
     string painallus;
 
     // Jatketaan kunnes peli loppuu
-    bool peliLoppuu = false;
+    bool peliLoppuu = false;;
 
-    poistettava1Epailty = "Neiti Punakulta";
-    poistettava2Epailty = "Tohtori Pinkkilä";
+    int v1Kysyttava = 0;
+    int v2Kysyttava = 0;
 
-    // Tuodaan tiedot myös tänne vastustajien kysymysten esittämistä varten
     vector<string> epaillyt = {"Pastori Viherlevä", "Eversti Keltanokka", "Tohtori Pinkkilä", "Rouva Siniverinen", "Professori Purppuravalo", "Neiti Punakulta"};
-    vector<string> aseet = {"Kynttilänjalka", "Tikari", "Putki", "Revolveri", "Köysi", "Jakoavain"};
+    vector<string> aseet= {"Kynttilänjalka", "Tikari", "Putki", "Revolveri", "Köysi", "Jakoavain"};
     vector<string> huoneet = {"Tanssisali", "Biljardihuone", "Kasvihuone", "Ruokasali", "Kylpyhuone", "Keittiö", "Kirjasto", "Lepohuone", "Työhuone"};
 
+
+    // Tuodaan tiedot myös tänne vastustajien kysymysten esittämistä varten
+    vector<string> epaillytV1 = {"Pastori Viherlevä", "Eversti Keltanokka", "Tohtori Pinkkilä", "Rouva Siniverinen", "Professori Purppuravalo", "Neiti Punakulta"};
+    vector<string> aseetV1 = {"Kynttilänjalka", "Tikari", "Putki", "Revolveri", "Köysi", "Jakoavain"};
+    vector<string> huoneetV1 = {"Tanssisali", "Biljardihuone", "Kasvihuone", "Ruokasali", "Kylpyhuone", "Keittiö", "Kirjasto", "Lepohuone", "Työhuone"};
+
+    vector<string> epaillytV2 = {"Pastori Viherlevä", "Eversti Keltanokka", "Tohtori Pinkkilä", "Rouva Siniverinen", "Professori Purppuravalo", "Neiti Punakulta"};
+    vector<string> aseetV2 = {"Kynttilänjalka", "Tikari", "Putki", "Revolveri", "Köysi", "Jakoavain"};
+    vector<string> huoneetV2 = {"Tanssisali", "Biljardihuone", "Kasvihuone", "Ruokasali", "Kylpyhuone", "Keittiö", "Kirjasto", "Lepohuone", "Työhuone"};
+
+    // Kierrosten laskeminen, parillisuus määrittää keneltä vastustaja kysyy kortteja
+    int v1Kierros = 1;
+    int v2Kierros = 1;
+
     while(!peliLoppuu) {
+        // Vastustajien nähtyjen korttien poisto
+        for (size_t i = 0; i < pelaajat.size(); ++i) {
+            pelaajat[i].poistaNahdytKortit(kortit);
+        }
 
         Pelaaja vuorossa = pelaajat[vuorossaOlevaPelaaja];
-        cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
+        cout << endl;
         cout << "-------------------------------------------------------------" << endl;
         cout << endl;
         cout << vuorossa.getNimi() << "n vuoro. Paina enteriä jatkaaksesi";
@@ -102,16 +171,37 @@ int main()
         cin.clear();
 
         if(vuorossaOlevaPelaaja == 0) {
-            cout << "pelaaja" << endl;
+
+
+
+            cout << endl;
+
+            tulostaKaikkiKortit(epaillyt, aseet, huoneet);
+
+            cout << endl;
+
+            cout << "*************************************************************" << endl;
+            cout << endl;
+
+            naytaPelaajanKortit(vector<Pelaaja>{pelaajat[0]});
+
+            cout << endl;
+
+            pelaajat[0].listaaNahdytKortit(epaillytV1, aseetV1, huoneetV1);
+
+            cout << endl;
+            cout << "*************************************************************" << endl;
+
             // Kysytään pelaajalta haluaako tämä arvata vai syyttää
             int valinta;
             // Jos käyttäjä antaa muun vastauksen kuin 1 tai 2, ohjelma kysyy uudestaan
             do {
+                cout << endl;
                 cout << "Haluatko arvata vai syyttää? (Arvaus = 1, syytös = 2)" << endl;
                 cout << "Valintasi: ";
                 cin >> valinta;
                 if(cin.fail()) {
-                    cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
+                    cout << endl;
                     cout << "Annathan vastauksesi vain numeroina!" << endl;
                     cin.clear();
                     cin.ignore();
@@ -119,7 +209,7 @@ int main()
                 }
 
                 if(valinta != 1 && valinta != 2) {
-                    cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
+                    cout << endl;
                     cout << "Virheellinen syöte, anna joko numero 1 tai 2!" << endl;
                 }
             } while(valinta != 1 && valinta != 2);
@@ -129,7 +219,7 @@ int main()
                 int vastustaja;
                 do {
                     // Valitaan vastustaja jolta kortteja kysytään
-                    cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
+                    cout << endl;
                     cout << "Kummalta vastustajalta haluat kysyä kortteja? (Vastustaja 1 = 1, Vastustaja 2 = 2)" << endl;
                     cout << "valintasi: ";
                     cin >> vastustaja;
@@ -140,11 +230,11 @@ int main()
                         continue;
                     }
                     if(vastustaja != 1 && vastustaja != 2) {
-                        cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
+                        cout << endl;
                         cout << "Virheellinen syöte, anna joko numero 1 tai 2!" << endl;
                     }
                 } while(vastustaja != 1 && vastustaja != 2);
-                cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
+                cout << endl;
                 cin.ignore(); // Syötteen tyhjennys, jotta epäillyn koko nimi toimii epäillyn valitsemisessa
 
                 // Kysyttävien korttien valitseminen
@@ -167,48 +257,42 @@ int main()
                 cout << "*************************************************************" << endl;
                 cout << endl;
 
-
                 // Korttien kysyminen valitulta vastustajalta
                 // Epäillyn tarkistaminen
                 if(pelaajat[vastustaja].kadessa(kysyttavaEpailty) && !pelaajat[0].onNahnytKortin(kysyttavaEpailty)) {
                     cout << "Vastustajalla on kysymäsi epäilty " + kysyttavaEpailty << endl;
                     pelaajat[0].lisaaKorttiNahtyihin(kysyttavaEpailty);
+                    pelaajat[0].poistaNakematon(kysyttavaEpailty);
 
                     // Aseen tarkistaminen
                 }  else if(pelaajat[vastustaja].kadessa(kysyttavaAse) && !pelaajat[0].onNahnytKortin(kysyttavaAse)) {
                     cout << "Vastustajalla on kysymäsi ase " + kysyttavaAse << endl;
                     pelaajat[0].lisaaKorttiNahtyihin(kysyttavaAse);
+                    pelaajat[0].poistaNakematon(kysyttavaAse);
+
 
                 }
                 // Huoneen tarkistaminen
                 else if(pelaajat[vastustaja].kadessa(kysyttavaHuone) && !pelaajat[0].onNahnytKortin(kysyttavaHuone)) {
                     cout << "Vastustajalla on kysymäsi huone " + kysyttavaHuone << endl;
                     pelaajat[0].lisaaKorttiNahtyihin(kysyttavaHuone);
-                }
+                    pelaajat[0].poistaNakematon(kysyttavaHuone);
 
+                }
 
                 else {
                     cout << "Valitsemallasi pelaajalla ei ole kysymiäsi kortteja tai olet nähnyt kortit jo!";
                     cout << endl;
                 }
-                // Tulostetaan jokaisen pelaajan näkemät aseet
-                for(const auto& pelaaja : pelaajat) {
-                    cout << pelaaja.getNimi() + "n näkemät aseet: " << endl;
-                    for(const auto& ase : pelaaja.getPelaajanNakematAseet()) {
-                        cout << ase << endl;
-                    }
-                    cout << endl;
-                }
-
             }
             // Jos halutaan syyttää
             else if (valinta == 2) {
-                cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
+                cout << endl;
                 cout << "Anna syytöksesi: " << endl;
                 cin.ignore(); // Syötteen tyhjennys, jotta epäillyn koko nimi toimii epäillyn valitsemisessa
 
-                naytaRatkaisu(ratkaisu);
-
+                // Ratkaisun näyttäminen koodauksen tueksi
+                // naytaRatkaisu(ratkaisu);
 
                 string kysyttavaEpailty;
                 cout << "Syytökseni mukaan murhaaja on "; // Syöte jatkaa lausetta
@@ -243,8 +327,7 @@ int main()
 
                 // Jos syytös on väärin
                 if(lkm != 3)                {
-                    cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
-
+                    cout << endl;
                     cout << "Voi harmi, syytöksesi oli väärin!" << endl;
                     cout << endl;
                     cout << "Oikea ratkaisu on: " << endl;
@@ -254,54 +337,110 @@ int main()
                 }
                 // Jos syytös on oikein
                 else {
-                    cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
+                    cout << endl;
                     cout << "Onneksi olkoon, voitit pelin!" << endl;
                     cout << endl;
                     peliLoppuu = true;
                 }
             }
 
+
             // Syötteen tyhjennys, jotta seuraavan pelaajan vuoro toimii
             cin.ignore();
             cin.clear();
-
-
-
         } else if (vuorossaOlevaPelaaja == 1) {
 
             // Vastustajan 1 näkemien korttien kirjauslomake
-            vector<string> epaillytV1 = epaillyt;
-            vector<string> aseetV1 = aseet;
-            vector<string> huoneetV1 = huoneet;
+            vector<string> epaillytV1K = epaillytV1;
+            vector<string> aseetV1K = aseetV1;
+            vector<string> huoneetV1K = huoneetV1;
 
-            vastus1Kirjaus(epaillytV1, aseetV1, huoneetV1, poistettava1Epailty, poistettava1Ase, poistettava1Huone);
+
+            pelaajat[1].muokkaaListaaV1(epaillytV1K, aseetV1K, huoneetV1K, vuorossa.getNakemattomatKortit());
+
+            vastus1Kirjaus(epaillytV1K, aseetV1K, huoneetV1K, poistettava1Epailty, poistettava1Ase, poistettava1Huone);
+            cout << endl;
 
             // Korttien tulostus koodauksen tueksi
             cout << "Vastustaja 1:n näkemät epäillyt:" << endl;
-            for (const auto& item : epaillytV1) {
-                cout << item << " ";
+            for (const auto& item : epaillytV1K) {
+                cout << item << ", ";
             }
             cout << endl;;
 
             cout << "Vastustaja 1:n näkemät aseet:" << endl;
-            for (const auto& item : aseetV1) {
-                cout << item << " ";
+            for (const auto& item : aseetV1K) {
+                cout << item << ", ";
             }
             cout << endl;;
 
             cout << "Vastustaja 1:n näkemät huoneet:" << endl;
-            for (const auto& item : huoneetV1) {
-                cout << item << " ";
+            for (const auto& item : huoneetV1K) {
+                cout << item << ", ";
             }
             cout << endl;;
 
+            string v1RandomEpailty = satunnaisKortti(epaillytV1K);
+            string v1RandomAse = satunnaisKortti(aseetV1K);
+            string v1RandomHuone = satunnaisKortti(huoneetV1K);
+
+            if (v1Kierros % 2 == 0) {
+                // Kysytään Pelaajalta
+                v1Kysyttava = 0;
+            }
+            else {
+                // Kysytään Vastustaja 2:lta
+                v1Kysyttava = 2;
+            }
+
+            // Jos kysyttävä kortti on vastustajalla, se poistetaan vastustajan korttimainuksesta
+            if(pelaajat[v1Kysyttava].kadessa(v1RandomEpailty)) {
+                cout << endl;
+                poistettava1Epailty = v1RandomEpailty;
+                cout << "JOO!";
+                vuorossa.lisaaNakemattomiin(v1RandomEpailty);
+
+            } else {
+                cout << endl;
+                cout << "EI!";
+            }
+
+            if(pelaajat[v1Kysyttava].kadessa(v1RandomAse)) {
+                cout << endl;
+                poistettava1Ase = v1RandomAse;
+                vuorossa.lisaaNakemattomiin(v1RandomAse);
+
+                cout << "JOO!";
+            } else {
+                cout << endl;
+                cout << "EI!";
+            }
+
+            if(pelaajat[v1Kysyttava].kadessa(v1RandomHuone)) {
+                cout << endl;
+                poistettava1Huone = v1RandomHuone;
+                vuorossa.lisaaNakemattomiin(v1RandomHuone);
+
+                cout << "JOO!";
+            } else {
+                cout << endl;
+                cout << "EI!";
+            }
             cout << endl;
 
-
-            //     listaaNahdytKortit(pelaajat);
-            cout << endl; // Tulostuksen muotoilu miellyttävämmäksi
+            muokkaamainaV1(epaillytV1K, aseetV1K, huoneetV1K, vuorossa.getNakemattomatKortit());
 
 
+            // Tulostetaan pelaajan nähtäväksi, mitä kortteja on kysytty
+            cout << "Vastustaja " << vuorossaOlevaPelaaja << ":n kysymä epäilty: " << v1RandomEpailty << endl;
+            cout << "Vastustaja " << vuorossaOlevaPelaaja << ":n kysymä ase: " << v1RandomAse << endl;
+            cout << "Vastustaja " << vuorossaOlevaPelaaja << ":n kysymä huone: " << v1RandomHuone << endl;
+
+            //      pelaajat[1].mainaNahdytKortit(epaillytV1, aseetV1, huoneetV1);
+
+            ++v1Kierros;
+
+            cout << endl;
 
             cout << endl;
             cout << "Paina enteriä jatkaaksesi";
@@ -311,30 +450,95 @@ int main()
         } else {
 
             // Vastustajan 2 näkemien korttien kirjauslomake
-            vector<string> epaillytV2 = epaillyt;
-            vector<string> aseetV2 = aseet;
-            vector<string> huoneetV2 = huoneet;
+            vector<string> epaillytV2K = epaillytV1;
+            vector<string> aseetV2K = aseetV1;
+            vector<string> huoneetV2K = huoneetV1;
 
-            vastus2Kirjaus(epaillytV2, aseetV2, huoneetV2, poistettava2Epailty, poistettava2Ase, poistettava2Huone);
+            //      updatemainLists(epaillytV2, aseetV2, huoneetV2, vuorossa.getNakemattomatKortit());
+            pelaajat[2].muokkaaListaaV2(epaillytV2K, aseetV2K, huoneetV2K, vuorossa.getNakemattomatKortit());
+
+
+            vastus2Kirjaus(epaillytV2K, aseetV2K, huoneetV2K, poistettava2Epailty, poistettava2Ase, poistettava2Huone);
+            cout << endl;
 
             // Korttien tulostus koodauksen tueksi
+
             cout << "Vastustaja 2:n näkemät epäillyt:" << endl;
-            for (const auto& item : epaillytV2) {
-                cout << item << " ";
+            for (const auto& item : epaillytV2K) {
+                cout << item << ", ";
             }
             cout << endl;;
 
             cout << "Vastustaja 2:n näkemät aseet:" << endl;
-            for (const auto& item : aseetV2) {
-                cout << item << " ";
+            for (const auto& item : aseetV2K) {
+                cout << item << ", ";
             }
             cout << endl;;
 
             cout << "Vastustaja 2:n näkemät huoneet:" << endl;
-            for (const auto& item : huoneetV2) {
-                cout << item << " ";
+            for (const auto& item : huoneetV2K) {
+                cout << item << ", ";
             }
             cout << endl;;
+
+            string v2RandomEpailty = satunnaisKortti(epaillytV2K);
+            string v2RandomAse = satunnaisKortti(aseetV2K);
+            string v2RandomHuone = satunnaisKortti(huoneetV2K);
+
+            if (v2Kierros % 2 == 1) {
+                // Kysytään Vastustaja 2:lta
+                v2Kysyttava = 0;
+            }
+            else {
+                // Kysytään Pelaajalta
+                v2Kysyttava = 0;
+            }
+
+            // Jos kysyttävä kortti on vastustajalla, se poistetaan vastustajan korttimainuksesta
+            if(pelaajat[v2Kysyttava].kadessa(v2RandomEpailty)) {
+                cout << endl;
+                poistettava2Epailty = v2RandomEpailty;
+                cout << "JOO!";
+                vuorossa.lisaaNakemattomiin(v2RandomEpailty);
+
+            } else {
+                cout << endl;
+                cout << "EI!";
+            }
+
+            if(pelaajat[v2Kysyttava].kadessa(v2RandomAse)) {
+                cout << endl;
+                poistettava2Ase = v2RandomAse;
+                vuorossa.lisaaNakemattomiin(v2RandomAse);
+
+                cout << "JOO!";
+            } else {
+                cout << endl;
+                cout << "EI!";
+            }
+
+            if(pelaajat[v2Kysyttava].kadessa(v2RandomHuone)) {
+                cout << endl;
+                poistettava2Huone = v2RandomHuone;
+                vuorossa.lisaaNakemattomiin(v2RandomHuone);
+
+                cout << "JOO!";
+            } else {
+                cout << endl;
+                cout << "EI!";
+            }
+            cout << endl;
+            muokkaamainaV2(epaillytV2K, aseetV2K, huoneetV2K, vuorossa.getNakemattomatKortit());
+
+            // Tulostetaan pelaajan nähtäväksi, mitä kortteja on kysytty
+            cout << "Vastustaja " << vuorossaOlevaPelaaja << ":n kysymä epäilty: " << v2RandomEpailty << endl;
+            cout << "Vastustaja " << vuorossaOlevaPelaaja << ":n kysymä ase: " << v2RandomAse << endl;
+            cout << "Vastustaja " << vuorossaOlevaPelaaja << ":n kysymä huone: " << v2RandomHuone << endl;
+
+
+            //    pelaajat[2].mainaNahdytKortit(epaillytV2, aseetV2, huoneetV2);
+
+            ++v2Kierros;
 
 
             cout << "Paina enteriä jatkaaksesi";
@@ -344,6 +548,8 @@ int main()
         }
 
         vuorossaOlevaPelaaja = (vuorossaOlevaPelaaja + 1) % pelaajat.size();
+
+
 
     }
 
