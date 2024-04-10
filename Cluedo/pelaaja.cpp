@@ -2,7 +2,7 @@
 #include <algorithm>
 #include "pelaaja.h"
 
-    using namespace std;
+using namespace std;
 
 Pelaaja::Pelaaja(const string& pelaajanNimi) : nimi(pelaajanNimi) {}
 
@@ -51,27 +51,26 @@ vector<string> huoneet = {"Tanssisali", "Biljardihuone", "Kasvihuone", "Ruokasal
 void Pelaaja::listaaNahdytKortit(const vector<string>& epaillyt, const vector<string>& aseet, const vector<string>& huoneet) {
     cout << nimi + "n näkemät kortit: " << endl;
 
-    cout << "Epäillyt:" << endl;
+    cout << "Epäillyt: ";
     for(const auto& kortti : pelaajanNakematKortit) {
         if (find(epaillyt.begin(), epaillyt.end(), kortti) != epaillyt.end()) {
             cout << kortti << ", ";
         }
     }
 
-    cout << "Aseet:" << endl;
+    cout << "Aseet: ";
     for(const auto& kortti : pelaajanNakematKortit) {
         if (find(aseet.begin(), aseet.end(), kortti) != aseet.end()) {
-            cout << kortti << ", ";;
+            cout << kortti << ", ";
         }
     }
 
-    cout << "Huoneet:" << endl;
+    cout << "Huoneet: ";
     for(const auto& kortti : pelaajanNakematKortit) {
         if (find(huoneet.begin(), huoneet.end(), kortti) != huoneet.end()) {
-            cout << kortti << ", ";;
+            cout << kortti << ", ";
         }
     }
-    cout << endl;
 }
 // Annetaan pelaajalle kortti
 void Pelaaja::korttiNahty(const string& kortti) {

@@ -97,7 +97,7 @@ public:
         listaus.erase(remove(listaus.begin(), listaus.end(), item), listaus.end());
     }
 
-   void muokkaaListaaV1(vector<string>& listaEpaillytV1, vector<string>& listaAseetV1, vector<string>& listaHuoneetV1, const vector<string>& nakemattomatKortit) {
+    void muokkaaListaaV1(vector<string>& listaEpaillytV1, vector<string>& listaAseetV1, vector<string>& listaHuoneetV1, const vector<string>& nakemattomatKortit) {
         for (const auto& kortti : nakemattomatKortit) {
             removeItem(listaEpaillytV1, kortti);
             removeItem(listaAseetV1, kortti);
