@@ -108,6 +108,13 @@ void tulostaKaikkiKortit(const vector<string>& epaillyt, const vector<string>& a
     }
     cout << endl;
 }
+
+void poistaArvattavista(vector<string>& epaillyt, vector<string>& aseet, vector<string>& huoneet, const string& card) {
+    epaillyt.erase(remove(epaillyt.begin(), epaillyt.end(), card), epaillyt.end());
+    aseet.erase(remove(aseet.begin(), aseet.end(), card), aseet.end());
+    huoneet.erase(remove(huoneet.begin(), huoneet.end(), card), huoneet.end());
+}
+
 int main()
 {
     // Pelaajien luonti
@@ -185,6 +192,7 @@ int main()
             cout << endl;
             pelaajat[0].listaaNahdytKortit(epaillytV1, aseetV1, huoneetV1);
 
+            cout << endl;
             cout << "*************************************************************" << endl;
             cout << endl;
 
@@ -257,19 +265,19 @@ int main()
                 if(pelaajat[vastustaja].kadessa(kysyttavaEpailty) && !pelaajat[0].onNahnytKortin(kysyttavaEpailty)) {
                     cout << "Vastustajalla on kysymäsi epäilty " + kysyttavaEpailty << endl;
                     pelaajat[0].lisaaKorttiNahtyihin(kysyttavaEpailty);
-                    pelaajat[0].poistaNakematon(kysyttavaEpailty);
+                    poistaArvattavista(epaillyt, aseet, huoneet, kysyttavaEpailty);
 
                     // Aseen tarkistaminen
                 } else if(pelaajat[vastustaja].kadessa(kysyttavaAse) && !pelaajat[0].onNahnytKortin(kysyttavaAse)) {
                     cout << "Vastustajalla on kysymäsi ase " + kysyttavaAse << endl;
                     pelaajat[0].lisaaKorttiNahtyihin(kysyttavaAse);
-                    pelaajat[0].poistaNakematon(kysyttavaAse);
+                    poistaArvattavista(epaillyt, aseet, huoneet, kysyttavaAse);
                 }
                 // Huoneen tarkistaminen
                 else if(pelaajat[vastustaja].kadessa(kysyttavaHuone) && !pelaajat[0].onNahnytKortin(kysyttavaHuone)) {
                     cout << "Vastustajalla on kysymäsi huone " + kysyttavaHuone << endl;
                     pelaajat[0].lisaaKorttiNahtyihin(kysyttavaHuone);
-                    pelaajat[0].poistaNakematon(kysyttavaHuone);
+                    poistaArvattavista(epaillyt, aseet, huoneet, kysyttavaHuone);
                 } else {
                     cout << "Valitsemallasi pelaajalla ei ole kysymiäsi kortteja tai olet nähnyt kortit jo!";
                     cout << endl;

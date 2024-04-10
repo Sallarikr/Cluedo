@@ -57,6 +57,7 @@ void Pelaaja::listaaNahdytKortit(const vector<string>& epaillyt, const vector<st
             cout << kortti << ", ";
         }
     }
+    cout << endl;
 
     cout << "Aseet: ";
     for(const auto& kortti : pelaajanNakematKortit) {
@@ -64,6 +65,7 @@ void Pelaaja::listaaNahdytKortit(const vector<string>& epaillyt, const vector<st
             cout << kortti << ", ";
         }
     }
+    cout << endl;
 
     cout << "Huoneet: ";
     for(const auto& kortti : pelaajanNakematKortit) {
@@ -71,6 +73,7 @@ void Pelaaja::listaaNahdytKortit(const vector<string>& epaillyt, const vector<st
             cout << kortti << ", ";
         }
     }
+    cout << endl;
 }
 // Annetaan pelaajalle kortti
 void Pelaaja::korttiNahty(const string& kortti) {
