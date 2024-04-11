@@ -20,7 +20,6 @@ public:
     string getNimi() const;
     bool kadessa(const string& kortti) const;
 
-
     bool onNahnytKortin(const string& kortti) const {
         return pelaajanNakematKortit.find(kortti) != pelaajanNakematKortit.end();
     }
@@ -97,22 +96,71 @@ public:
         listaus.erase(remove(listaus.begin(), listaus.end(), item), listaus.end());
     }
 
-    void muokkaaListaaV1(vector<string>& listaEpaillytV1, vector<string>& listaAseetV1, vector<string>& listaHuoneetV1, const vector<string>& nakemattomatKortit) {
-        for (const auto& kortti : nakemattomatKortit) {
-            removeItem(listaEpaillytV1, kortti);
-            removeItem(listaAseetV1, kortti);
-            removeItem(listaHuoneetV1, kortti);
-        }
+    void seeCard(const string& card) {
+        nakemattomatKortit.erase(remove(nakemattomatKortit.begin(), nakemattomatKortit.end(), card), nakemattomatKortit.end());
+        nahdytKortit.push_back(card);
     }
 
-    void muokkaaListaaV2(vector<string>& listaEpaillytV2, vector<string>& listaAseetV2, vector<string>& listaHuoneetV2, const vector<string>& nakemattomatKortit) {
-        for (const auto& kortti : nakemattomatKortit) {
-            removeItem(listaEpaillytV2, kortti);
-            removeItem(listaAseetV2, kortti);
-            removeItem(listaHuoneetV2, kortti);
-        }
+    // Vastustajien näkemättömäksi laitettavat kortit
+    vector<string> epaillyt = {"Pastori Viherlevä", "Eversti Keltanokka", "Tohtori Pinkkilä", "Rouva Siniverinen", "Professori Purppuravalo", "Neiti Punakulta"};
+    vector<string> aseet = {"Kynttilänjalka", "Tikari", "Putki", "Revolveri", "Köysi", "Jakoavain"};
+    vector<string> huoneet = {"Tanssisali", "Biljardihuone", "Kasvihuone", "Ruokasali", "Kylpyhuone", "Keittiö", "Kirjasto", "Lepohuone", "Työhuone"};
+
+    Pelaaja(const vector<string>& epaillyt, const vector<string>& aseet, const vector<string>& huoneet) {
+        // Lisätään kortit näkemättömiksi
+        nakemattomatKortit.reserve(epaillyt.size() + aseet.size() + huoneet.size());
+        nakemattomatKortit.insert(nakemattomatKortit.end(), epaillyt.begin(), epaillyt.end());
+        nakemattomatKortit.insert(nakemattomatKortit.end(), aseet.begin(), aseet.end());
+        nakemattomatKortit.insert(nakemattomatKortit.end(), huoneet.begin(), huoneet.end());
     }
 
+    // Tarkistetaan onko kortti vastustajalla itsellään
+    bool kadessaOn(const string& kortti) const {
+        return find(nakemattomatKortit.begin(), nakemattomatKortit.end(), kortti) != getNakemattomatKortit().end();
+    }
+
+    /* Vastustajien arvattavissa olevien korttien tulostus koodaamisen tueksi
+    void tulostaKaikkiKortit(const vector<string>& epaillyt, const vector<string>& aseet, const vector<string>& huoneet, const Pelaaja& pelaaja) {
+        cout << "Arvattavissa olevat kortit:" << endl;
+        cout << endl;
+
+        // Tulostetaan epäillyt
+        cout << "Epäillyt:" << endl;
+        for (const auto& epailty : epaillyt) {
+            if (!pelaaja.kadessaOn(epailty)) {
+                cout << epailty << ", ";
+            }
+        }
+        cout << endl;
+        cout << endl;
+
+        // Tulostetaan aseet
+        cout << "Aseet:" << endl;
+        for (const auto& ase : aseet) {
+            if (!pelaaja.kadessaOn(ase)) {
+                cout << ase << ", ";
+            }
+        }
+        cout << endl;
+        cout << endl;
+
+        // Tulostetaan huoneet
+        cout << "Huoneet:" << endl;
+        for (const auto& huone : huoneet) {
+            if (!pelaaja.kadessaOn(huone)) {
+                cout << huone << ", ";
+            }
+        }
+        cout << endl;
+
+         Näytetään vastustajan näkemät kortit ohjelmoinnin tueksi
+        cout << "Nähtyjen korttien luettelo:" << endl;
+        for (const auto& kortti : pelaaja.nakemattomatKortit) {
+           cout << kortti << ", ";
+       }
+        cout << endl;
+    }
+*/
     void naytaPelaajanKortit() const;
     void listaaNahdytKortit(const vector<string>& epaillyt, const vector<string>& aseet, const vector<string>& huoneet);
 

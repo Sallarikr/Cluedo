@@ -39,18 +39,18 @@ void naytaPelaajanKortit(const vector<Pelaaja>& pelaajat) {
     }
 }
 
-// Kortin kysyminen pelaajalta
+// Kortin kysyminen pelaajalta kyselyä varten
 bool Pelaaja::kadessa(const string& kortti) const {
     return find(pelaajallaOlevatKortit.begin(), pelaajallaOlevatKortit.end(), kortti) != pelaajallaOlevatKortit.end();
 }
 
+// Listaus korteista kyselyä varten
 vector<string> epaillyt = {"Pastori Viherlevä", "Eversti Keltanokka", "Tohtori Pinkkilä", "Rouva Siniverinen", "Professori Purppuravalo", "Neiti Punakulta"};
 vector<string> aseet = {"Kynttilänjalka", "Tikari", "Putki", "Revolveri", "Köysi", "Jakoavain"};
 vector<string> huoneet = {"Tanssisali", "Biljardihuone", "Kasvihuone", "Ruokasali", "Kylpyhuone", "Keittiö", "Kirjasto", "Lepohuone", "Työhuone"};
 
 void Pelaaja::listaaNahdytKortit(const vector<string>& epaillyt, const vector<string>& aseet, const vector<string>& huoneet) {
     cout << nimi + "n näkemät kortit: " << endl;
-
     cout << "Epäillyt: ";
     for(const auto& kortti : pelaajanNakematKortit) {
         if (find(epaillyt.begin(), epaillyt.end(), kortti) != epaillyt.end()) {
@@ -75,7 +75,7 @@ void Pelaaja::listaaNahdytKortit(const vector<string>& epaillyt, const vector<st
     }
     cout << endl;
 }
-// Annetaan pelaajalle kortti
+
 void Pelaaja::korttiNahty(const string& kortti) {
     nahdytKortit.push_back(kortti);
 }
@@ -83,7 +83,6 @@ void Pelaaja::korttiNahty(const string& kortti) {
 const set<string>& Pelaaja::getPelaajanNakematEpaillyt() const {
     return pelaajanNakematEpaillyt;
 }
-
 
 const set<string>& Pelaaja::getPelaajanNakematAseet() const {
     return pelaajanNakematAseet;
@@ -93,7 +92,6 @@ const set<string>& Pelaaja::getPelaajanNakematHuoneet() const {
     return pelaajanNakematHuoneet;
 }
 
-
 void Pelaaja::lisaaKorttiNahtyihin(const string& kortti) {
     pelaajanNakematKortit.insert(kortti);
 }
@@ -101,4 +99,3 @@ void Pelaaja::lisaaKorttiNahtyihin(const string& kortti) {
 const set<string>& Pelaaja::getPelaajanNakematKortit() const {
     return pelaajanNakematKortit;
 }
-
