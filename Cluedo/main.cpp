@@ -26,10 +26,14 @@ string satunnaisKortti(const vector<string>& listaus) {
     return listaus[satunnaisIndeksi];
 }
 
-void tulostaKaikkiKortit(const vector<string>& epaillyt, const vector<string>& aseet, const vector<string>& huoneet, const Pelaaja& pelaaja) {
+void tulostaKaikkiKortit(const vector<string>& epaillyt, const vector<string>& aseet, const vector<string>& huoneet,
+                         const vector<string>& epaillyt1, const vector<string>& aseet1, const vector<string>& huoneet1,
+                         const vector<string>& epaillyt2, const vector<string>& aseet2, const vector<string>& huoneet2, const Pelaaja& pelaaja, int& nro) {
     cout << "Arvattavissa olevat kortit:" << endl;
     cout << endl;
 
+    // Pelaaja
+    if (nro == 0) {
     // Tulostetaan epäillyt
     cout << "Epäillyt:" << endl;
     for (const auto& epailty : epaillyt) {
@@ -57,18 +61,132 @@ void tulostaKaikkiKortit(const vector<string>& epaillyt, const vector<string>& a
             cout << huone << ", ";
         }
     }
+    }
+
+    // Vastustaja 1
+    if (nro == 1) {
+
+      /*   for (size_t i = 0; i < epaillyt1.size(); ++i) {
+            if (i > 0) {
+                std::cout << ", ";
+            }
+            std::cout << epaillyt1[i];
+        }
+        std::cout << std::endl;
+
+        for (size_t i = 0; i < aseet1.size(); ++i) {
+            if (i > 0) {
+                std::cout << ", ";
+            }
+            std::cout << aseet1[i];
+        }
+        std::cout << std::endl;
+
+        for (size_t i = 0; i < huoneet1.size(); ++i) {
+            if (i > 0) {
+                std::cout << ", ";
+            }
+            std::cout << huoneet1[i];
+        }
+        std::cout << std::endl;*/
+       // Tulostetaan epäillyt
+        cout << "Epäillyt:" << endl;
+        for (const auto& epailty : epaillyt1) {
+            if (!pelaaja.kadessa(epailty)) {
+                cout << epailty << ", ";
+            }
+        }
+        cout << endl;
+        cout << endl;
+
+        // Tulostetaan aseet
+        cout << "Aseet:" << endl;
+        for (const auto& ase : aseet1) {
+            if (!pelaaja.kadessa(ase)) {
+                cout << ase << ", ";
+            }
+        }
+        cout << endl;
+        cout << endl;
+
+        // Tulostetaan huoneet
+        cout << "Huoneet:" << endl;
+        for (const auto& huone : huoneet1) {
+            if (!pelaaja.kadessa(huone)) {
+                cout << huone << ", ";
+            }
+        }
+
+    }
+
+    // Vastustaja 2
+    if (nro == 2) {
+
+       /* for (size_t i = 0; i < epaillyt2.size(); ++i) {
+            if (i > 0) {
+                std::cout << ", ";
+            }
+            std::cout << epaillyt2[i];
+        }
+        std::cout << std::endl;
+
+        for (size_t i = 0; i < aseet2.size(); ++i) {
+            if (i > 0) {
+                std::cout << ", ";
+            }
+            std::cout << aseet2[i];
+        }
+        std::cout << std::endl;
+
+        for (size_t i = 0; i < huoneet2.size(); ++i) {
+            if (i > 0) {
+                std::cout << ", ";
+            }
+            std::cout << huoneet2[i];
+        }
+        std::cout << std::endl; */
+        // Tulostetaan epäillyt
+        cout << "Epäillyt:" << endl;
+        for (const auto& epailty : epaillyt2) {
+            if (!pelaaja.kadessa(epailty)) {
+                cout << epailty << ", ";
+            }
+        }
+        cout << endl;
+        cout << endl;
+
+        // Tulostetaan aseet
+        cout << "Aseet:" << endl;
+        for (const auto& ase : aseet2) {
+            if (!pelaaja.kadessa(ase)) {
+                cout << ase << ", ";
+            }
+        }
+        cout << endl;
+        cout << endl;
+
+        // Tulostetaan huoneet
+        cout << "Huoneet:" << endl;
+        for (const auto& huone : huoneet2) {
+            if (!pelaaja.kadessa(huone)) {
+                cout << huone << ", ";
+            }
+        }
+    }
+
     cout << endl;
-}
+    }
 
 void poistaArvattavista(vector<string>& epaillyt, vector<string>& aseet, vector<string>& huoneet,
                         vector<string>& epaillyt1, vector<string>& aseet1, vector<string>& huoneet1,
                         vector<string>& epaillyt2, vector<string>& aseet2, vector<string>& huoneet2, const string& card, int& nro) {
 
-    if(nro == 0) {
+   if(nro == 0) {
     epaillyt.erase(remove(epaillyt.begin(), epaillyt.end(), card), epaillyt.end());
     aseet.erase(remove(aseet.begin(), aseet.end(), card), aseet.end());
     huoneet.erase(remove(huoneet.begin(), huoneet.end(), card), huoneet.end());
 
+   /* // Tulostus
     for (size_t i = 0; i < epaillyt.size(); ++i) {
         if (i > 0) {
             std::cout << ", ";
@@ -76,7 +194,6 @@ void poistaArvattavista(vector<string>& epaillyt, vector<string>& aseet, vector<
         std::cout << epaillyt[i];
     }
     std::cout << std::endl;
-
 
     for (size_t i = 0; i < aseet.size(); ++i) {
         if (i > 0) {
@@ -86,7 +203,6 @@ void poistaArvattavista(vector<string>& epaillyt, vector<string>& aseet, vector<
     }
     std::cout << std::endl;
 
-
     for (size_t i = 0; i < huoneet.size(); ++i) {
         if (i > 0) {
             std::cout << ", ";
@@ -95,14 +211,16 @@ void poistaArvattavista(vector<string>& epaillyt, vector<string>& aseet, vector<
     }
     std::cout << std::endl;
 
-
+   */
     } else if (nro == 1) {
+
 
     epaillyt1.erase(remove(epaillyt1.begin(), epaillyt1.end(), card), epaillyt1.end());
     aseet1.erase(remove(aseet1.begin(), aseet1.end(), card), aseet1.end());
     huoneet1.erase(remove(huoneet1.begin(), huoneet1.end(), card), huoneet1.end());
 
 
+/*    // Tulostus
     for (size_t i = 0; i < epaillyt1.size(); ++i) {
         if (i > 0) {
             std::cout << ", ";
@@ -110,7 +228,6 @@ void poistaArvattavista(vector<string>& epaillyt, vector<string>& aseet, vector<
         std::cout << epaillyt1[i];
     }
     std::cout << std::endl;
-
 
     for (size_t i = 0; i < aseet1.size(); ++i) {
         if (i > 0) {
@@ -120,7 +237,6 @@ void poistaArvattavista(vector<string>& epaillyt, vector<string>& aseet, vector<
     }
     std::cout << std::endl;
 
-
     for (size_t i = 0; i < huoneet1.size(); ++i) {
         if (i > 0) {
             std::cout << ", ";
@@ -128,15 +244,13 @@ void poistaArvattavista(vector<string>& epaillyt, vector<string>& aseet, vector<
         std::cout << huoneet1[i];
     }
     std::cout << std::endl;
-
-
-
+*/
     } else if (nro == 2) {
     epaillyt2.erase(remove(epaillyt2.begin(), epaillyt2.end(), card), epaillyt2.end());
     aseet2.erase(remove(aseet2.begin(), aseet2.end(), card), aseet2.end());
     huoneet2.erase(remove(huoneet2.begin(), huoneet2.end(), card), huoneet2.end());
 
-
+  /*  // Tulostus
     for (size_t i = 0; i < epaillyt2.size(); ++i) {
         if (i > 0) {
             std::cout << ", ";
@@ -144,7 +258,6 @@ void poistaArvattavista(vector<string>& epaillyt, vector<string>& aseet, vector<
         std::cout << epaillyt2[i];
     }
     std::cout << std::endl;
-
 
     for (size_t i = 0; i < aseet2.size(); ++i) {
         if (i > 0) {
@@ -154,7 +267,6 @@ void poistaArvattavista(vector<string>& epaillyt, vector<string>& aseet, vector<
     }
     std::cout << std::endl;
 
-
     for (size_t i = 0; i < huoneet2.size(); ++i) {
         if (i > 0) {
             std::cout << ", ";
@@ -162,20 +274,8 @@ void poistaArvattavista(vector<string>& epaillyt, vector<string>& aseet, vector<
         std::cout << huoneet2[i];
     }
     std::cout << std::endl;
-
+   */
     }
-}
-
-void poistaArvattavista1(vector<string>& epaillyt1, vector<string>& aseet1, vector<string>& huoneet1, const string& card) {
-    epaillyt1.erase(remove(epaillyt1.begin(), epaillyt1.end(), card), epaillyt1.end());
-    aseet1.erase(remove(aseet1.begin(), aseet1.end(), card), aseet1.end());
-    huoneet1.erase(remove(huoneet1.begin(), huoneet1.end(), card), huoneet1.end());
-}
-
-void poistaArvattavista2(vector<string>& epaillyt2, vector<string>& aseet2, vector<string>& huoneet2, const string& card) {
-    epaillyt2.erase(remove(epaillyt2.begin(), epaillyt2.end(), card), epaillyt2.end());
-    aseet2.erase(remove(aseet2.begin(), aseet2.end(), card), aseet2.end());
-    huoneet2.erase(remove(huoneet2.begin(), huoneet2.end(), card), huoneet2.end());
 }
 
 int main()
@@ -236,7 +336,7 @@ int main()
             cout << endl;
         //    int nro =vuorossaOlevaPelaaja;
 /*
-            tulostaKaikkiKortit(epaillyt, aseet, huoneet, pelaajat[0]);
+            tulostaKaikkiKortit(epaillyt, aseet, huoneet, epaillyt1, aseet1, huoneet1, epaillyt2, aseet2, huoneet2, pelaajat[0], nro);
 
             cout << endl;
             cout << "*************************************************************" << endl;
@@ -403,7 +503,7 @@ int main()
             cin.clear();
         } else if (vuorossaOlevaPelaaja == 1) {
             int nro = vuorossaOlevaPelaaja;
-            tulostaKaikkiKortit(epaillyt, aseet, huoneet, pelaajat[1]);
+            tulostaKaikkiKortit(epaillyt, aseet, huoneet, epaillyt1, aseet1, huoneet1, epaillyt2, aseet2, huoneet2, pelaajat[1], nro);
             cout << endl;
             pelaajat[1].listaaNahdytKortit(epaillyt, aseet, huoneet);
 
@@ -471,7 +571,7 @@ int main()
 
         } else {
             int nro = vuorossaOlevaPelaaja;
-            tulostaKaikkiKortit(epaillyt, aseet, huoneet, pelaajat[2]);
+            tulostaKaikkiKortit(epaillyt, aseet, huoneet, epaillyt1, aseet1, huoneet1, epaillyt2, aseet2, huoneet2, pelaajat[2], nro);
             cout << endl;
             pelaajat[2].listaaNahdytKortit(epaillyt, aseet, huoneet);
 
@@ -508,13 +608,13 @@ int main()
                 pelaajat[2].lisaaKorttiNahtyihin(v2RandomAse);
                 cout << "Vastustaja näki jonkin " + k2Nimi + " kysymistään korteista:" << endl;
                 cout << endl;
-                poistaArvattavista(epaillyt, aseet, huoneet, epaillyt1, aseet1, huoneet1, epaillyt2, aseet2, huoneet2, v2RandomEpailty, nro);
+                poistaArvattavista(epaillyt, aseet, huoneet, epaillyt1, aseet1, huoneet1, epaillyt2, aseet2, huoneet2, v2RandomAse, nro);
                 cout << endl;
             } else if(pelaajat[v2Kysyttava].kadessa(v2RandomHuone)) {
                 pelaajat[2].lisaaKorttiNahtyihin(v2RandomHuone);
                 cout << "Vastustaja näki jonkin " + k2Nimi + " kysymistään korteista:" << endl;
                 cout << endl;
-                poistaArvattavista(epaillyt, aseet, huoneet, epaillyt1, aseet1, huoneet1, epaillyt2, aseet2, huoneet2, v2RandomEpailty, nro);
+                poistaArvattavista(epaillyt, aseet, huoneet, epaillyt1, aseet1, huoneet1, epaillyt2, aseet2, huoneet2, v2RandomHuone, nro);
                 cout << endl;
 
             } else {
