@@ -106,6 +106,14 @@ public:
     vector<string> aseet = {"Kynttilänjalka", "Tikari", "Putki", "Revolveri", "Köysi", "Jakoavain"};
     vector<string> huoneet = {"Tanssisali", "Biljardihuone", "Kasvihuone", "Ruokasali", "Kylpyhuone", "Keittiö", "Kirjasto", "Lepohuone", "Työhuone"};
 
+    vector<string> epaillyt1 = {"Pastori Viherlevä", "Eversti Keltanokka", "Tohtori Pinkkilä", "Rouva Siniverinen", "Professori Purppuravalo", "Neiti Punakulta"};
+    vector<string> aseet1 = {"Kynttilänjalka", "Tikari", "Putki", "Revolveri", "Köysi", "Jakoavain"};
+    vector<string> huoneet1 = {"Tanssisali", "Biljardihuone", "Kasvihuone", "Ruokasali", "Kylpyhuone", "Keittiö", "Kirjasto", "Lepohuone", "Työhuone"};
+
+    vector<string> epaillyt2 = {"Pastori Viherlevä", "Eversti Keltanokka", "Tohtori Pinkkilä", "Rouva Siniverinen", "Professori Purppuravalo", "Neiti Punakulta"};
+    vector<string> aseet2 = {"Kynttilänjalka", "Tikari", "Putki", "Revolveri", "Köysi", "Jakoavain"};
+    vector<string> huoneet2 = {"Tanssisali", "Biljardihuone", "Kasvihuone", "Ruokasali", "Kylpyhuone", "Keittiö", "Kirjasto", "Lepohuone", "Työhuone"};
+
     Pelaaja(const vector<string>& epaillyt, const vector<string>& aseet, const vector<string>& huoneet) {
         // Lisätään kortit näkemättömiksi
         nakemattomatKortit.reserve(epaillyt.size() + aseet.size() + huoneet.size());
@@ -178,5 +186,6 @@ private:
 void naytaPelaajanKortit(const vector<Pelaaja>& pelaajat);
 void jaaKortit(vector<Pelaaja>& pelaajat, vector<string>& kortit);
 void listaaNahdytKortit(const vector<Pelaaja>& pelaajat);
+
 
 #endif // PELAAJA_H

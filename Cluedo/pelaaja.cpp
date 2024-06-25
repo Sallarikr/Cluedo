@@ -11,6 +11,7 @@ string Pelaaja::getNimi() const {
     return nimi;
 }
 
+
 // Annetaan pelaajalle kortti
 void Pelaaja::lisaaKortti(const string& kortti) {
     pelaajallaOlevatKortit.push_back(kortti);

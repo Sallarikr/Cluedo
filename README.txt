@@ -11,7 +11,48 @@ Varoituksen sanana: jos syytös menee väärin, peli päättyy. Väärin menneen
 Vastustajien arvaukset ovat satunnaisesti arvottuja kortteja. 
 Vastustajat kyselevät kortteja vuorokierroksin pelaajalta tai toiselta vastustajalta.
 
-____
+
+0.05195
+__________________
+
+
+practical game design kirjasto
+rajaukset tarkemmin
+tutkimus
+testaus 5-10 hlo
+tapaamispöytäkirja mistä on puhuttu
+versio 2 suunnitelmasta rajauksineen wihiin
+	
+testausken tärkeys, mitä aiemmin sitä hyödyllisempää - uusia ratkaisua
+
+buildaa desktopiin testaukseen
+
+testataanko toiminnallisuutta
+mistä näkökulmasta : onko ollut kiinnostavia kursseja- mistä. muuta mielenkiinoa 
+
+millä tavalla halutaan katsoa pelikehitystä
+
+midnmap
+
+rajaus on täkrä
+
+hyvä prosessi ja dokumentointi
+ tärkeää
+
+github publicina
+
+päiväkirja gitiin viikkotasolla
+
+
+ennen tapaamista tee edistymisraportti wihiin
+
+tapaamispöytäkirjaan tapaaminen ylös
+
+tapaaminen syksyllä, sähköpostia että miten on edistynyt ja mitä on suunniteltu tehtäväksi kesällä. suunnitellaan tapaaminen kun koulu jatkuu. 
+
+opponointi syksyllä
+
+_______________
 
 
 Pelistä on jätetty muutama suunnitteilla ollut toiminto pois ajan puutteen vuoksi. 
