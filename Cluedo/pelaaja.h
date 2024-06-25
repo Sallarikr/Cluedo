@@ -127,50 +127,10 @@ public:
         return find(nakemattomatKortit.begin(), nakemattomatKortit.end(), kortti) != getNakemattomatKortit().end();
     }
 
-    /* Vastustajien arvattavissa olevien korttien tulostus koodaamisen tueksi
-    void tulostaKaikkiKortit(const vector<string>& epaillyt, const vector<string>& aseet, const vector<string>& huoneet, const Pelaaja& pelaaja) {
-        cout << "Arvattavissa olevat kortit:" << endl;
-        cout << endl;
-
-        // Tulostetaan epäillyt
-        cout << "Epäillyt:" << endl;
-        for (const auto& epailty : epaillyt) {
-            if (!pelaaja.kadessaOn(epailty)) {
-                cout << epailty << ", ";
-            }
-        }
-        cout << endl;
-        cout << endl;
-
-        // Tulostetaan aseet
-        cout << "Aseet:" << endl;
-        for (const auto& ase : aseet) {
-            if (!pelaaja.kadessaOn(ase)) {
-                cout << ase << ", ";
-            }
-        }
-        cout << endl;
-        cout << endl;
-
-        // Tulostetaan huoneet
-        cout << "Huoneet:" << endl;
-        for (const auto& huone : huoneet) {
-            if (!pelaaja.kadessaOn(huone)) {
-                cout << huone << ", ";
-            }
-        }
-        cout << endl;
-
-         Näytetään vastustajan näkemät kortit ohjelmoinnin tueksi
-        cout << "Nähtyjen korttien luettelo:" << endl;
-        for (const auto& kortti : pelaaja.nakemattomatKortit) {
-           cout << kortti << ", ";
-       }
-        cout << endl;
-    }
-*/
     void naytaPelaajanKortit() const;
-    void listaaNahdytKortit(const vector<string>& epaillyt, const vector<string>& aseet, const vector<string>& huoneet);
+    void listaaNahdytKortit(const vector<string>& epaillyt, const vector<string>& aseet, const vector<string>& huoneet,
+                            const vector<string>& epaillyt1, const vector<string>& aseet1, const vector<string>& huoneet1,
+                            const vector<string>& epaillyt2, const vector<string>& aseet2, const vector<string>& huoneet2, int& nro);
 
 private:
     string nimi;

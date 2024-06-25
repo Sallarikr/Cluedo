@@ -50,29 +50,86 @@ vector<string> epaillyt = {"Pastori Viherlevä", "Eversti Keltanokka", "Tohtori 
 vector<string> aseet = {"Kynttilänjalka", "Tikari", "Putki", "Revolveri", "Köysi", "Jakoavain"};
 vector<string> huoneet = {"Tanssisali", "Biljardihuone", "Kasvihuone", "Ruokasali", "Kylpyhuone", "Keittiö", "Kirjasto", "Lepohuone", "Työhuone"};
 
-void Pelaaja::listaaNahdytKortit(const vector<string>& epaillyt, const vector<string>& aseet, const vector<string>& huoneet) {
+vector<string> epaillyt1 = {"Pastori Viherlevä", "Eversti Keltanokka", "Tohtori Pinkkilä", "Rouva Siniverinen", "Professori Purppuravalo", "Neiti Punakulta"};
+vector<string> aseet1 = {"Kynttilänjalka", "Tikari", "Putki", "Revolveri", "Köysi", "Jakoavain"};
+vector<string> huoneet1 = {"Tanssisali", "Biljardihuone", "Kasvihuone", "Ruokasali", "Kylpyhuone", "Keittiö", "Kirjasto", "Lepohuone", "Työhuone"};
+
+vector<string> epaillyt2 = {"Pastori Viherlevä", "Eversti Keltanokka", "Tohtori Pinkkilä", "Rouva Siniverinen", "Professori Purppuravalo", "Neiti Punakulta"};
+vector<string> aseet2 = {"Kynttilänjalka", "Tikari", "Putki", "Revolveri", "Köysi", "Jakoavain"};
+vector<string> huoneet2 = {"Tanssisali", "Biljardihuone", "Kasvihuone", "Ruokasali", "Kylpyhuone", "Keittiö", "Kirjasto", "Lepohuone", "Työhuone"};
+
+
+
+
+void Pelaaja::listaaNahdytKortit(const vector<string>& epaillyt, const vector<string>& aseet, const vector<string>& huoneet,
+                                 const vector<string>& epaillyt1, const vector<string>& aseet1, const vector<string>& huoneet1,
+                                 const vector<string>& epaillyt2, const vector<string>& aseet2, const vector<string>& huoneet2, int& nro) {
     cout << nimi + "n näkemät kortit: " << endl;
     cout << "Epäillyt: ";
+    if(nro == 0) {
     for(const auto& kortti : pelaajanNakematKortit) {
         if (find(epaillyt.begin(), epaillyt.end(), kortti) != epaillyt.end()) {
             cout << kortti << ", ";
         }
     }
+    } else if (nro == 1){
+        for(const auto& kortti1 : pelaajanNakematKortit) {
+            if (find(epaillyt1.begin(), epaillyt1.end(), kortti1) != epaillyt1.end()) {
+                cout << kortti1 << ", ";
+            }
+        }
+    } else if (nro == 2) {
+        for(const auto& kortti2 : pelaajanNakematKortit) {
+            if (find(epaillyt2.begin(), epaillyt2.end(), kortti2) != epaillyt2.end()) {
+                cout << kortti2 << ", ";
+            }
+        }
+    }
+
     cout << endl;
 
     cout << "Aseet: ";
+    if(nro == 0) {
     for(const auto& kortti : pelaajanNakematKortit) {
         if (find(aseet.begin(), aseet.end(), kortti) != aseet.end()) {
             cout << kortti << ", ";
         }
     }
+    } else if(nro == 1) {
+        for(const auto& kortti1 : pelaajanNakematKortit) {
+            if (find(aseet1.begin(), aseet1.end(), kortti1) != aseet1.end()) {
+                cout << kortti1 << ", ";
+            }
+        }
+    } else if (nro == 2) {
+        for(const auto& kortti2 : pelaajanNakematKortit) {
+            if (find(aseet2.begin(), aseet2.end(), kortti2) != aseet2.end()) {
+                cout << kortti2 << ", ";
+            }
+        }
+    }
     cout << endl;
 
     cout << "Huoneet: ";
+    if(nro == 0){
     for(const auto& kortti : pelaajanNakematKortit) {
         if (find(huoneet.begin(), huoneet.end(), kortti) != huoneet.end()) {
             cout << kortti << ", ";
         }
+    }
+    } else if (nro == 1) {
+        for(const auto& kortti1 : pelaajanNakematKortit) {
+            if (find(huoneet1.begin(), huoneet1.end(), kortti1) != huoneet1.end()) {
+                cout << kortti1 << ", ";
+            }
+        }
+    }
+    else if (nro == 2) {
+    for(const auto& kortti2: pelaajanNakematKortit) {
+        if (find(huoneet2.begin(), huoneet2.end(), kortti2) != huoneet2.end()) {
+            cout << kortti2 << ", ";
+        }
+    }
     }
     cout << endl;
 }
