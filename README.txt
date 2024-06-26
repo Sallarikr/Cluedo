@@ -1,12 +1,10 @@
 Cluedo
 
-Pelin ideana on kysyä vastustajilta kolmea korttia: murhasta epäiltyä henkilöä, murha-asetta, sekä murhan tapahtumapaikkaa. 
+The idea of the game is to ask opponents for 3 cards: a murder suspect, a weapon and a room that the murder took place in.
 
-Peli alkaa pelaajan vuorosta: pelaaja voi valita epäilemisen tai syyttämisen (1 tai 2).
-Pelaaja syöttää ohjatusti arvauksensa konsoliin tekstinä. Syöte on case-sensitiivinen.
+The game starts with your turn. You can choose to make a suspection or an accusation.
+You give your input to the console, make sure to write the names as you see them, the input is case-sensitive.
 
-Jos pelaaja on varma murhan yksityiskohdista (tai haluaa heittää villin veikkauksen), hän voi valita oman vuoronsa alussa epäilemisen sijasta syyttämisen. 
-Varoituksen sanana: jos syytös menee väärin, peli päättyy. Väärin menneen syytöksen jälkeen pelaaja näkee oikean vastauksen.
+If you are sure about your suspections, you can make an accusation. If the accusation is incorrect, you lose.
 
-Vastustajien arvaukset ovat satunnaisesti arvottuja kortteja. 
-Vastustajat kyselevät kortteja vuorokierroksin pelaajalta tai toiselta vastustajalta.
+The opponents ask random cards that they haven't seen yet. They take turns asking from you and each other.
